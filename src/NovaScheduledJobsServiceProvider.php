@@ -4,6 +4,7 @@ namespace Llaski\NovaScheduledJobs;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Llaski\NovaScheduledJobs\Http\Middleware\Authorize;
 
 class NovaScheduledJobsServiceProvider extends ServiceProvider
 {
@@ -32,7 +33,7 @@ class NovaScheduledJobsServiceProvider extends ServiceProvider
             return;
         }
 
-        Route::middleware(['nova'])
+        Route::middleware(['nova', Authorize::class])
             ->prefix('nova-vendor/llaski/nova-scheduled-jobs')
             ->group(__DIR__ . '/../routes/api.php');
     }
