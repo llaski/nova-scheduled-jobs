@@ -4,9 +4,6 @@ namespace Llaski\NovaScheduledJobs;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Nova\Events\ServingNova;
-use Laravel\Nova\Nova;
-use Llaski\NovaScheduledJobs\Console\Commands\ScheduleList;
 
 class NovaScheduledJobsServiceProvider extends ServiceProvider
 {
@@ -17,14 +14,10 @@ class NovaScheduledJobsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'nova-scheduled-jobs');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'nova-scheduled-jobs');
 
         $this->app->booted(function () {
             $this->routes();
-        });
-
-        Nova::serving(function (ServingNova $event) {
-            Nova::script('nova-scheduled-jobs', __DIR__ . '/../dist/js/scheduledJobs.js');
         });
     }
 

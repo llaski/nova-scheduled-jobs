@@ -24,7 +24,7 @@ public function cards()
 {
     return [
         // ...
-        new \Llaski\NovaScheduledJobs,
+        new \Llaski\NovaScheduledJobsCard,
     ];
 }
 ```

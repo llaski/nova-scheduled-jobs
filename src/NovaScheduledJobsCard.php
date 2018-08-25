@@ -4,7 +4,7 @@ namespace Llaski\NovaScheduledJobs;
 
 use Laravel\Nova\Card;
 
-class NovaScheduledJobs extends Card
+class NovaScheduledJobsCard extends Card
 {
     /**
      * The width of the card (1/3, 1/2, or full).
