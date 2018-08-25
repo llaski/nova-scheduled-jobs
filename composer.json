@@ -1,0 +1,39 @@
+{
+    "name": "llaski/nova-scheduled-jobs",
+    "description": "A Laravel Nova card.",
+    "keywords": [
+        "laravel",
+        "nova"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1.0",
+        "dragonmantank/cron-expression": "^2.2"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.7",
+        "phpunit/phpunit": "^7.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Llaski\\NovaScheduledJobs\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Llaski\\NovaScheduledJobs\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Llaski\\NovaScheduledJobs\\CardServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
