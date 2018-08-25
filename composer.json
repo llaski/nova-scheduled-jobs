@@ -1,16 +1,28 @@
 {
     "name": "llaski/nova-scheduled-jobs",
-    "description": "A Laravel Nova card.",
+    "description": "A Laravel Nova card to view your scheduled jobs.",
     "keywords": [
         "laravel",
         "nova"
     ],
+    "homepage": "https://github.com/llaski/nova-scheduled-jobs",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Larry Laski",
+            "email": "larry.laski@gmail.com",
+            "homepage": "https://larrylaski.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": ">=7.1.0",
-        "dragonmantank/cron-expression": "^2.2"
+        "dragonmantank/cron-expression": "^2.2",
+        "illuminate/console": "^5.6",
+        "nesbot/carbon": "^1.33"
     },
     "require-dev": {
+        "illuminate/cache": "^5.6",
         "orchestra/testbench": "^3.7",
         "phpunit/phpunit": "^7.3"
     },
@@ -27,7 +39,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Llaski\\NovaScheduledJobs\\CardServiceProvider"
+                "Llaski\\NovaScheduledJobs\\NovaScheduledJobsServiceProvider"
             ]
         }
     },
