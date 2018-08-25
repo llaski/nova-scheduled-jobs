@@ -8,7 +8,14 @@ use Llaski\NovaScheduledJobs\Schedule\Factory as ScheduleFactory;
 class JobsController
 {
 
-    public function index(Schedule $schedule)
+    /**
+     * Return a list of all scheduled jobs
+     *
+     * @param  Kernel   $kernel (Not sure why we need to inject the kernel, but without it we don't get the schedueld jobs. Prob something to do with how the schedule method is called from the kernel)
+     * @param  Schedule $schedule
+     * @return array
+     */
+    public function index(Kernel $kernel, Schedule $schedule)
     {
         return collect($schedule->events())
             ->map(function ($event) {

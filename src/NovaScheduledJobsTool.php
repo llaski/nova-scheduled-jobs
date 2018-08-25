@@ -9,6 +9,6 @@ class NovaScheduledJobsTool extends Tool
 {
     public function boot()
     {
-        Nova::script('nova-scheduled-jobs', __DIR__ . '/../dist/js/scheduledJobs.js');
+        Nova::script('nova-scheduled-jobs', __DIR__ . '/../dist/js/card.js');
     }
 }
