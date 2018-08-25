@@ -1,4 +1,4 @@
-#Nova Scheduled Jobs
+# Nova Scheduled Jobs
 
 ## A card to display your scheduled jobs
 
@@ -49,7 +49,7 @@ If you discover any security related issues, please email larry.laski@gmail.com 
 
 ## Credits
 
-- [Freek Van der Herten](https://github.com/llaski)
+- [Larry Laski](https://github.com/llaski)
 - [All Contributors](../../contributors)
 
 ## License
