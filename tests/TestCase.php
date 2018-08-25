@@ -13,6 +13,8 @@ abstract class TestCase extends OrchestraTestCase
         parent::setUp();
 
         Route::middlewareGroup('nova', []);
+
+        $this->withoutExceptionHandling();
     }
 
     protected function getPackageProviders($app)

@@ -23,10 +23,9 @@ class NovaScheduledJobsServiceProvider extends ServiceProvider
             $this->routes();
         });
 
-        // Nova::serving(function (ServingNova $event) {
-        //     Nova::script('nova-scheduled-jobs', __DIR__ . '/../dist/js/card.js');
-        //     Nova::style('nova-scheduled-jobs', __DIR__ . '/../dist/css/card.css');
-        // });
+        Nova::serving(function (ServingNova $event) {
+            Nova::script('nova-scheduled-jobs', __DIR__ . '/../dist/js/scheduledJobs.js');
+        });
     }
 
     /**
@@ -45,15 +44,4 @@ class NovaScheduledJobsServiceProvider extends ServiceProvider
             ->group(__DIR__ . '/../routes/api.php');
     }
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->commands([
-            ScheduleList::class,
-        ]);
-    }
 }

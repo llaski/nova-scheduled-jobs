@@ -4,20 +4,21 @@ namespace Llaski\NovaScheduledJobs\Tests;
 
 use Cron\CronExpression;
 use Illuminate\Support\Carbon;
+use Llaski\NovaScheduledJobs\Schedule\Cron;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\Jobs\UpdateOrders;
 use Llaski\NovaScheduledJobs\Vendor\CronSchedule;
 
 class ListJobsTest extends TestCase
 {
 
-    // /** @test */
-    // public function itReturnsAnEmptyArrayIfThereAreNoJobsScheduled()
-    // {
-    //     $response = $this->getJson('nova-vendor/llaski/nova-scheduled-jobs/jobs');
+    /** @test */
+    public function itReturnsAnEmptyArrayIfThereAreNoJobsScheduled()
+    {
+        $response = $this->getJson('nova-vendor/llaski/nova-scheduled-jobs/jobs');
 
-    //     $response->assertStatus(200);
-    //     $response->assertJson([]);
-    // }
+        $response->assertStatus(200);
+        $response->assertJson([]);
+    }
 
     /** @test */
     public function itReturnsAListOfScheduledJobs()
@@ -25,7 +26,7 @@ class ListJobsTest extends TestCase
         $kernel = app('Llaski\NovaScheduledJobs\Tests\Fakes\Kernel', [
             'scheduledJobs' => [
                 [
-                    'command' => 'horizon:snapshot',
+                    'command' => 'cache:clear',
                     'schedule' => 'everyFiveMinutes',
                     'additionalOptions' => []
                 ],
@@ -54,11 +55,11 @@ class ListJobsTest extends TestCase
         $response->assertStatus(200);
         $response->assertJson([
             [
-                'command' => 'horizon:snapshot',
-                'description' => 'Store a snapshot of the queue metrics',
+                'command' => 'cache:clear',
+                'description' => 'Flush the application cache',
                 'expression' => '*/5 * * * *',
                 'humanReadableExpression' => 'Every consecutive 5 minutes past every hour on every day.',
-                'nextRunAt' => $this->nextRunAt('*/5 * * * *'),
+                'nextRunAt' => Cron::nextRunAt('*/5 * * * *')->toIso8601String(),
                 'timezone' => 'UTC',
                 'withoutOverlapping' => false,
                 'onOneServer' => false,
@@ -69,7 +70,7 @@ class ListJobsTest extends TestCase
                 'description' => '',
                 'expression' => '0 * * * *',
                 'humanReadableExpression' => 'At the hour past every hour on every day.',
-                'nextRunAt' => $this->nextRunAt('0 * * * *'),
+                'nextRunAt' => Cron::nextRunAt('0 * * * *')->toIso8601String(),
                 'timezone' => 'UTC',
                 'withoutOverlapping' => true,
                 'onOneServer' => true,
@@ -80,7 +81,7 @@ class ListJobsTest extends TestCase
                 'description' => 'Fake job to update orders...',
                 'expression' => '0 0 * * *',
                 'humanReadableExpression' => 'At 00:00 on every day.',
-                'nextRunAt' => $this->nextRunAt('0 0 * * *'),
+                'nextRunAt' => Cron::nextRunAt('0 0 * * *')->toIso8601String(),
                 'timezone' => 'UTC',
                 'withoutOverlapping' => false,
                 'onOneServer' => false,
@@ -89,15 +90,4 @@ class ListJobsTest extends TestCase
         ]);
     }
 
-    private function nextRunAt($expression, $tz = null)
-    {
-        $cron = CronExpression::factory($expression);
-        $nextRun = Carbon::instance($cron->getNextRunDate());
-
-        if ($tz) {
-            $nextRun->setTimezone($tz);
-        }
-
-        return $nextRun->toIso8601String();
-    }
 }
