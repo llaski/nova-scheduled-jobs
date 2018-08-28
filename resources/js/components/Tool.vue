@@ -23,7 +23,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <job-row v-for="(job, index) in jobs" :key="index" :job="job"></job-row>
+                    <tr v-for="(job, index) in jobs" :job="job">
+                        <td>{{ job.command }}</td>
+                        <td class="py-2">{{ job.description }}</td>
+                        <td class="py-2">{{ job.humanReadableExpression }}</td>
+                        <td>{{ job.expression }}</td>
+                        <td>{{ formatNextRunAt(job.nextRunAt) }}</td>
+                        <td>{{ job.withoutOverlapping ? 'Yes' : 'No' }}</td>
+                        <td>{{ job.onOneServer ? 'Yes' : 'No' }}</td>
+                        <td>{{ job.evenInMaintenanceMode ? 'Yes' : 'No' }}</td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -33,11 +42,10 @@
 </template>
 
 <script>
-import JobRow from './JobRow.vue'
+import formatters from '../mixins/formatters'
 
 export default {
-
-    components: { JobRow },
+    mixins: [formatters],
 
     data: () => {
         return {

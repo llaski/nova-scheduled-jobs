@@ -11,7 +11,7 @@ class NovaScheduledJobsCard extends Card
      *
      * @var string
      */
-    public $width = 'full';
+    public $width = '1/2';
 
     /**
      * Get the component name for the element.

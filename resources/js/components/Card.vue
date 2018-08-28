@@ -10,17 +10,16 @@
             <thead>
                 <tr>
                     <th class="text-left">Command/Job</th>
-                    <th class="text-left">Description</th>
-                    <th class="text-left">Schedule</th>
                     <th class="text-left">Expression</th>
                     <th class="text-left">Next Run At</th>
-                    <th class="text-left">Without Overlapping</th>
-                    <th class="text-left">On One Server</th>
-                    <th class="text-left">Run In Maintenance Mode</th>
                 </tr>
             </thead>
             <tbody>
-                <job-row v-for="(job, index) in jobs" :key="index" :job="job"></job-row>
+                <tr v-for="(job, index) in jobs" :job="job">
+                    <td>{{ job.command }}</td>
+                    <td>{{ job.expression }}</td>
+                    <td>{{ formatNextRunAt(job.nextRunAt) }}</td>
+                </tr>
             </tbody>
         </table>
 
@@ -28,12 +27,11 @@
 </template>
 
 <script>
-
-import JobRow from './JobRow.vue'
+import formatters from '../mixins/formatters'
 
 export default {
 
-    components: { JobRow },
+    mixins: [formatters],
 
     props: ['card'],
 
@@ -45,6 +43,7 @@ export default {
     },
 
     mounted() {
+        console.log('got here')
         this.fetchJobs()
     },
 

@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
-use Llaski\NovaScheduledJobs\Http\Middleware\Authorize;
 
 class NovaScheduledJobsServiceProvider extends ServiceProvider
 {
@@ -24,7 +23,7 @@ class NovaScheduledJobsServiceProvider extends ServiceProvider
         });
 
         Nova::serving(function (ServingNova $event) {
-            Nova::script('nova-scheduled-jobs', __DIR__ . '/../dist/js/card.js');
+            Nova::script('nova-scheduled-jobs', __DIR__ . '/../dist/js/app.js');
         });
     }
 
@@ -39,7 +38,7 @@ class NovaScheduledJobsServiceProvider extends ServiceProvider
             return;
         }
 
-        Route::middleware(['nova', Authorize::class])
+        Route::middleware(['nova'])
             ->prefix('nova-vendor/llaski/nova-scheduled-jobs')
             ->group(__DIR__ . '/../routes/api.php');
     }

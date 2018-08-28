@@ -7,11 +7,6 @@ use Laravel\Nova\Tool;
 
 class NovaScheduledJobsTool extends Tool
 {
-    public function boot()
-    {
-        Nova::script('nova-scheduled-jobs', __DIR__ . '/../dist/js/tool.js');
-    }
-
     /**
      * Build the view that renders the navigation links for the tool.
      *
