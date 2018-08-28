@@ -61,9 +61,6 @@ export default {
             })
         },
 
-        formatNextRunAt(date) {
-            return moment(date).fromNow().replace(/^\w/, c => c.toUpperCase())
-        }
     }
 
 }
