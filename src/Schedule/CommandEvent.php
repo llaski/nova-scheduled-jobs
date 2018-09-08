@@ -9,7 +9,7 @@ class CommandEvent extends Event
 {
     public function command()
     {
-        preg_match("/artisan.*\s(.*)/", $this->event->command, $matches);
+        preg_match("/artisan.*?\s(.*)/", $this->event->command, $matches);
 
         return $matches[1] ?? null;
     }
