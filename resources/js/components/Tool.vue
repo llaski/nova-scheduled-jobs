@@ -4,7 +4,7 @@
             Scheduled Jobs
         </heading>
 
-        <card class="h-auto p-4 mb-4">
+        <card class="h-auto p-4 mb-4 overflow-scroll">
             <p v-if="!loading && !jobs.length">You do not currently have any scheduled jobs.</p>
 
             <loader v-if="loading" class="mb-4"></loader>
@@ -20,6 +20,7 @@
                         <th class="text-left">Without Overlapping</th>
                         <th class="text-left">On One Server</th>
                         <th class="text-left">Run In Maintenance Mode</th>
+                        <th class="text-left">Dispatch</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,12 +33,40 @@
                         <td>{{ job.withoutOverlapping ? 'Yes' : 'No' }}</td>
                         <td>{{ job.onOneServer ? 'Yes' : 'No' }}</td>
                         <td>{{ job.evenInMaintenanceMode ? 'Yes' : 'No' }}</td>
+                        <td>
+                            <button                                
+                                title="Dispatch"
+                                class="appearance-none mr-3"
+                                :class="canDispatchCommand(job.command) ? 'text-70 hover:text-primary' : 'cursor-default text-40'"
+                                :disabled="!canDispatchCommand(job.command)"
+                                @click.prevent="openConfirmationModal(job)"
+                            >
+                                <icon type="play" />
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-
+            <portal to="modals">
+                <transition name="fade">
+                    <delete-resource-modal
+                        v-if="confirmDispatchJobModal"
+                        @confirm="confirmDispatchJob"
+                        @close="confirmDispatchJobModal = false"
+                        mode="Dispatch"
+                    >
+                        <div class="p-8">
+                            <heading :level="2" class="mb-6">
+                                Dispatch - <b>{{ dispatchJob.command }}</b>
+                            </heading>
+                            <p class="text-80 leading-normal">
+                                Are you sure you want to dispatch the Job?
+                            </p>
+                        </div>
+                    </delete-resource-modal>
+                </transition>
+            </portal>
         </card>
-
     </div>
 </template>
 
@@ -46,19 +75,40 @@ import formatters from '../mixins/formatters'
 
 export default {
     mixins: [formatters],
-
-    data: () => {
-        return {
-            loading: false,
-            jobs: [],
-        }
-    },
+    
+    data: () => ({     
+        jobs: [],
+        loading: false,
+        dispatchJob: null,
+        confirmDispatchJobModal: false,
+    }),
 
     mounted() {
         this.fetchJobs()
     },
 
-    methods: {
+    methods: {        
+
+        canDispatchCommand(command) {
+            return command.includes("\Jobs");
+        },
+
+        openConfirmationModal(job) {
+            this.dispatchJob = job;
+            this.confirmDispatchJobModal = true;
+        },
+        
+        confirmDispatchJob() {
+            const job = this.dispatchJob;
+            Nova.request().post('/nova-vendor/llaski/nova-scheduled-jobs/dispatch-job', { command: job.command })
+                .then((response) => {
+                    console.log({response});
+                    this.confirmDispatchJobModal = false;
+                }).catch((error) => {
+                    console.error({error});
+                    this.confirmDispatchJobModal = false;
+                })
+        },   
 
         fetchJobs() {
             this.loading = true

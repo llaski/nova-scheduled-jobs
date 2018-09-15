@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Llaski\NovaScheduledJobs\Http\Controllers\JobsController;
+use Llaski\NovaScheduledJobs\Http\Controllers\DispatchJobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +16,4 @@ use Llaski\NovaScheduledJobs\Http\Controllers\JobsController;
  */
 
 Route::get('jobs', JobsController::class . '@index');
+Route::post('dispatch-job', DispatchJobController::class . '@create');
