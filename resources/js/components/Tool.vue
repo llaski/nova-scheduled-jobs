@@ -48,22 +48,13 @@
                 </tbody>
             </table>
             <portal to="modals">
-                <transition name="fade">
-                    <delete-resource-modal
+                <transition name="fade">                    
+                    <dispatch-job-modal
                         v-if="confirmDispatchJobModal"
                         @confirm="confirmDispatchJob"
                         @close="confirmDispatchJobModal = false"
-                        mode="Dispatch"
-                    >
-                        <div class="p-8">
-                            <heading :level="2" class="mb-6">
-                                Dispatch - <b>{{ dispatchJob.command }}</b>
-                            </heading>
-                            <p class="text-80 leading-normal">
-                                Are you sure you want to dispatch the Job?
-                            </p>
-                        </div>
-                    </delete-resource-modal>
+                        :command="dispatchJob.command"
+                    />                    
                 </transition>
             </portal>
         </card>
@@ -76,7 +67,7 @@ import formatters from '../mixins/formatters'
 export default {
     mixins: [formatters],
     
-    data: () => ({     
+    data: () => ({
         jobs: [],
         loading: false,
         dispatchJob: null,
@@ -90,23 +81,23 @@ export default {
     methods: {        
 
         canDispatchCommand(command) {
-            return command.includes("\Jobs");
+            return command.includes("\Jobs")
         },
 
         openConfirmationModal(job) {
-            this.dispatchJob = job;
-            this.confirmDispatchJobModal = true;
+            this.dispatchJob = job
+            this.confirmDispatchJobModal = true
         },
         
         confirmDispatchJob() {
-            const job = this.dispatchJob;
+            const job = this.dispatchJob
             Nova.request().post('/nova-vendor/llaski/nova-scheduled-jobs/dispatch-job', { command: job.command })
-                .then((response) => {
-                    console.log({response});
-                    this.confirmDispatchJobModal = false;
+                .then((response) => {                    
+                    this.confirmDispatchJobModal = false
+                    this.$toasted.show('The job was dispatched!', { type: 'success' })
                 }).catch((error) => {
-                    console.error({error});
-                    this.confirmDispatchJobModal = false;
+                    this.confirmDispatchJobModal = false
+                    this.$toasted.show(error.response.data.message, { type: 'error' })
                 })
         },   
 
@@ -120,8 +111,6 @@ export default {
                 setTimeout(this.fetchJobs, 60 * 1000)
             })
         },
-
     }
-
 }
 </script>
