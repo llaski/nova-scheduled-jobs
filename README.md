@@ -1,9 +1,9 @@
 # Nova Scheduled Jobs
 
-## Includes both a tool and card to display your scheduled commands and jobs
-
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/llaski/nova-scheduled-jobs.svg?style=flat-square)](https://packagist.org/packages/llaski/nova-scheduled-jobs)
 [![Total Downloads](https://img.shields.io/packagist/dt/llaski/nova-scheduled-jobs.svg?style=flat-square)](https://packagist.org/packages/llaski/nova-scheduled-jobs)
+
+## Includes both a tool and card to display your scheduled commands and jobs
 
 ![Nova Scheduled Jobs Tool Screenshot](https://raw.githubusercontent.com/llaski/screenshots/master/nova-scheduled-jobs-tool.png)
 
