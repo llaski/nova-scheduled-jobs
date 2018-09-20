@@ -15,9 +15,11 @@ class DispatchJobController
     public function create(Request $request)
     {
         $data = $request->validate([
-            'command' => ['required','string', new JobExist()]
+            'command' => ['required', 'string', new JobExist]
         ]);
-    
-        dispatch(new $data['command']());
+        
+        $command = resolve($data['command']);
+
+        dispatch($command);
     }
 }
