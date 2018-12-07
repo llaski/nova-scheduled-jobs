@@ -7,7 +7,7 @@ class JobEvent extends Event
 
     public function command()
     {
-        return $this->event->description;
+        return $this->event->description ?? 'Closure';
     }
 
     public function className()
