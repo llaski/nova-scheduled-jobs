@@ -81,7 +81,11 @@ export default {
     methods: {        
 
         canDispatchCommand(command) {
-            return command.includes("\Jobs")
+            if(command){
+                return command.includes("\Jobs")
+            }
+
+            return false;
         },
 
         openConfirmationModal(job) {
