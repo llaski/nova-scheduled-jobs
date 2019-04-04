@@ -20,6 +20,6 @@ class DispatchJobController
         
         $command = resolve($data['command']);
 
-        dispatch($command);
+        dispatch(new $command);
     }
 }
