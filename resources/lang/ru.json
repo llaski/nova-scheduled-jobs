@@ -1,0 +1,14 @@
+{
+    "Are you sure you want to dispatch the Job?": "Вы уверены, что хотите запустить эту задачу?",
+    "Command/Job": "Команда/Задача",
+    "Description": "Описание",
+    "Dispatch": "Запустить",
+    "Expression": "Выражение",
+    "Next Run At": "Следующий запуск в",
+    "On One Server": "На одно сервере",
+    "Run In Maintenance Mode": "Запустить в режиме обслуживания",
+    "Schedule": "Расписание",
+    "Scheduled Jobs": "Задачи по расписанию",
+    "Without Overlapping": "Без перекрытия",
+    "You do not currently have any scheduled jobs.": "Сейчас у вас нет задач по расписанию."
+}
