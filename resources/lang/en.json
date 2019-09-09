@@ -1,0 +1,14 @@
+{
+    "Are you sure you want to dispatch the Job?": "Are you sure you want to dispatch the Job?",
+    "Command/Job": "Command/Job",
+    "Description": "Description",
+    "Dispatch": "Dispatch",
+    "Expression": "Expression",
+    "Next Run At": "Next Run At",
+    "On One Server": "On One Server",
+    "Run In Maintenance Mode": "Run In Maintenance Mode",
+    "Schedule": "Schedule",
+    "Scheduled Jobs": "Scheduled Jobs",
+    "Without Overlapping": "Without Overlapping",
+    "You do not currently have any scheduled jobs.": "You do not currently have any scheduled jobs."
+}

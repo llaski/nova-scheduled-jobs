@@ -5,22 +5,22 @@
         </heading>
 
         <card class="h-auto p-4 mb-4 overflow-scroll">
-            <p v-if="!loading && !jobs.length">You do not currently have any scheduled jobs.</p>
+            <p v-if="!loading && !jobs.length">{{ __('You do not currently have any scheduled jobs.') }}</p>
 
             <loader v-if="loading" class="mb-4"></loader>
 
             <table v-if="!loading && jobs.length" class="table w-full">
                 <thead>
                     <tr>
-                        <th class="text-left">Command/Job</th>
-                        <th class="text-left">Description</th>
-                        <th class="text-left">Schedule</th>
-                        <th class="text-left">Expression</th>
-                        <th class="text-left">Next Run At</th>
-                        <th class="text-left">Without Overlapping</th>
-                        <th class="text-left">On One Server</th>
-                        <th class="text-left">Run In Maintenance Mode</th>
-                        <th class="text-left">Dispatch</th>
+                        <th class="text-left">{{ __('Command/Job') }}</th>
+                        <th class="text-left">{{ __('Description') }}</th>
+                        <th class="text-left">{{ __('Schedule') }}</th>
+                        <th class="text-left">{{ __('Expression') }}</th>
+                        <th class="text-left">{{ __('Next Run At') }}</th>
+                        <th class="text-left">{{ __('Without Overlapping') }}</th>
+                        <th class="text-left">{{ __('On One Server') }}</th>
+                        <th class="text-left">{{ __('Run In Maintenance Mode') }}</th>
+                        <th class="text-left">{{ __('Dispatch') }}</th>
                     </tr>
                 </thead>
                 <tbody>
