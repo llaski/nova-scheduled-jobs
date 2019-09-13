@@ -2,6 +2,7 @@
 
 namespace Llaski\NovaScheduledJobs\Tests\Fakes;
 
+use Illuminate\Support\Arr;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
@@ -39,7 +40,7 @@ class Kernel extends ConsoleKernel
     {
         collect($this->scheduledJobs)->each(function ($job) use ($schedule) {
 
-            if (array_has($job, 'job')) {
+            if (Arr::has($job, 'job')) {
                 $command = $schedule->job($job['job']);
             } else {
                 $command = $schedule->command($job['command']);
@@ -47,7 +48,7 @@ class Kernel extends ConsoleKernel
 
             $command->{$job['schedule']}();
 
-            collect(array_get($job, 'additionalOptions', []))->each(function ($additionalOption) use ($command) {
+            collect(Arr::get($job, 'additionalOptions', []))->each(function ($additionalOption) use ($command) {
                 $command->{$additionalOption}();
             });
         });

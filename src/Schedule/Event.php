@@ -2,6 +2,7 @@
 
 namespace Llaski\NovaScheduledJobs\Schedule;
 
+use Illuminate\Support\Arr;
 use Llaski\NovaScheduledJobs\Vendor\CronSchedule;
 
 abstract class Event
@@ -21,7 +22,7 @@ abstract class Event
     {
         try {
             $reflection = new \ReflectionClass($this->className());
-            return (string) array_get($reflection->getDefaultProperties(), 'description', '');
+            return (string) Arr::get($reflection->getDefaultProperties(), 'description', '');
         } catch (\ReflectionException $exception) {
             return '';
         }
