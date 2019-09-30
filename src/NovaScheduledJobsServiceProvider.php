@@ -16,6 +16,12 @@ class NovaScheduledJobsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->publishes([
+            __DIR__.'/../resources/lang/' => resource_path('lang/vendor/nova-scheduled-jobs'),
+        ]);
+
+        $this->loadTranslations();
+
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'nova-scheduled-jobs');
 
         $this->app->booted(function () {
@@ -24,6 +30,8 @@ class NovaScheduledJobsServiceProvider extends ServiceProvider
 
         Nova::serving(function (ServingNova $event) {
             Nova::script('nova-scheduled-jobs', __DIR__ . '/../dist/js/app.js');
+
+            $this->bootTranslations();
         });
     }
 
@@ -43,4 +51,28 @@ class NovaScheduledJobsServiceProvider extends ServiceProvider
             ->group(__DIR__ . '/../routes/api.php');
     }
 
+    /**
+     * Load package translation resources.
+     *
+     * @return void
+     */
+    protected function loadTranslations()
+    {
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'NovaScheduledJobs');
+        $this->loadJSONTranslationsFrom(__DIR__.'/../resources/lang');
+        $this->loadJSONTranslationsFrom(resource_path('lang/vendor/nova-scheduled-jobs'));
+    }
+
+    /**
+     * Bootstraps current application locale translations to Nova.
+     *
+     * @return void
+     */
+    protected function bootTranslations()
+    {
+        $currentLocale = $this->app->getLocale();
+
+        Nova::translations(__DIR__.'/../resources/lang/'.$currentLocale.'.json');
+        Nova::translations(resource_path('lang/vendor/nova-scheduled-jobs/'.$currentLocale.'.json'));
+    }
 }

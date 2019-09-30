@@ -1,17 +1,17 @@
 <template>
     <card class="h-auto p-4">
-        <h2 class="text-90 font-light mb-4">Scheduled Jobs</h2>
+        <h2 class="text-90 font-light mb-4">{{ __('Scheduled Jobs') }}</h2>
 
-        <p v-if="!loading && !jobs.length">You do not currently have any scheduled jobs.</p>
+        <p v-if="!loading && !jobs.length">{{ __('You do not currently have any scheduled jobs.') }}</p>
 
         <loader v-if="loading" class="mb-4"></loader>
 
         <table v-if="!loading && jobs.length" class="table w-full">
             <thead>
                 <tr>
-                    <th class="text-left">Command/Job</th>
-                    <th class="text-left">Expression</th>
-                    <th class="text-left">Next Run At</th>
+                    <th class="text-left">{{ __('Command/Job') }}</th>
+                    <th class="text-left">{{ __('Expression') }}</th>
+                    <th class="text-left">{{ __('Next Run At') }}</th>
                 </tr>
             </thead>
             <tbody>

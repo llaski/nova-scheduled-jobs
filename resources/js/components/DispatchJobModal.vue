@@ -8,15 +8,15 @@
         >
             <slot :command="command">
                 <div class="p-8">
-                    <heading :level="2" class="mb-6">Dispatch - <b>{{ command }}</b></heading>
-                    <p class="text-80 leading-normal">Are you sure you want to dispatch the Job?</p>
+                    <heading :level="2" class="mb-6">{{ __('Dispatch') }} - <b>{{ command }}</b></heading>
+                    <p class="text-80 leading-normal">{{ __('Are you sure you want to dispatch the Job?') }}</p>
                 </div>
             </slot>
 
             <div class="bg-30 px-6 py-3 flex">
                 <div class="ml-auto">
-                    <button type="button" data-testid="cancel-button" dusk="cancel-dispatch-job-button" @click.prevent="handleClose" class="btn text-80 font-normal h-9 px-3 mr-3 btn-link">{{__('Cancel')}}</button>
-                    <button id="confirm-dispatch-job-button" ref="confirmButton" data-testid="confirm-button" type="submit" class="btn btn-default btn-primary">Dispatch</button>
+                    <button type="button" data-testid="cancel-button" dusk="cancel-dispatch-job-button" @click.prevent="handleClose" class="btn text-80 font-normal h-9 px-3 mr-3 btn-link">{{ __('Cancel') }}</button>
+                    <button id="confirm-dispatch-job-button" ref="confirmButton" data-testid="confirm-button" type="submit" class="btn btn-default btn-primary">{{ __('Dispatch') }}</button>
                 </div>
             </div>
         </form>
