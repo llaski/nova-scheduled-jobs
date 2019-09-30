@@ -8,7 +8,7 @@
     "On One Server": "На одно сервере",
     "Run In Maintenance Mode": "Запустить в режиме обслуживания",
     "Schedule": "Расписание",
-    "Scheduled Jobs": "Задачи по расписанию",
+    "Scheduled Jobs": "Расписание задач",
     "Without Overlapping": "Без перекрытия",
-    "You do not currently have any scheduled jobs.": "Сейчас у вас нет задач по расписанию."
+    "You do not currently have any scheduled jobs.": "Сейчас у вас нет задач в расписании."
 }
