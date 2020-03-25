@@ -1,6 +1,6 @@
 <?php
 
-namespace Llaski\NovaScheduledJobs;
+namespace Llaski\NovaScheduledJobs\Vendor;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool as BaseTool;
