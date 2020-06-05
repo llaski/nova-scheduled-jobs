@@ -31,7 +31,7 @@ class NovaScheduledJobsCard extends Card
 
         // Set default authorisation
         $this->canSee(function ($request) {
-            return NovaScheduledJobsTool::authorize($request);
+            return NovaScheduledJobsTool::defaultAuthorize($request);
         });
     }
 }

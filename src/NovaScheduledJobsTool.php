@@ -43,7 +43,7 @@ class NovaScheduledJobsTool extends Tool
      *
      * @return bool
      */
-    public static function authorize($request)
+    public static function defaultAuthorize($request)
     {
         $tool = collect(Nova::registeredTools())
             ->first(function ($tool) {

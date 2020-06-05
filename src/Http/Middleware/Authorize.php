@@ -16,7 +16,7 @@ class Authorize
      */
     public function handle($request, $next)
     {
-        return NovaScheduledJobsTool::authorize($request) ? $next($request) : abort(403);
+        return NovaScheduledJobsTool::defaultAuthorize($request) ? $next($request) : abort(403);
     }
 
     /**
