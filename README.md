@@ -28,7 +28,9 @@ public function tools()
 {
     return [
         // ...
-        new \Llaski\NovaScheduledJobs\NovaScheduledJobsTool,
+        //new \Llaski\NovaScheduledJobs\NovaScheduledJobsTool,
+        \Llaski\NovaScheduledJobs\NovaScheduledJobsTool::make(),
+        //\Llaski\NovaScheduledJobs\NovaScheduledJobsTool::make()->hide(),
     ];
 }
 ```
@@ -61,6 +63,29 @@ public function cards()
     return [
         // ...
         new \Llaski\NovaScheduledJobs\NovaScheduledJobsManagerCard,
+    ];
+}
+```
+### Authorisation
+
+All cards and routes consult the tool for permissions, this means you create your permission handler by defining it in the `canSee` callback on the tool;
+
+```php
+// in app/Providers/NovaServiceProvider.php
+
+// ...
+
+public function tools()
+{
+    return [
+        // ...
+        \Llaski\NovaScheduledJobs\NovaScheduledJobsTool::make()
+            ->canSee(
+                function($request)
+                { 
+                    return false; 
+                }
+            ),
     ];
 }
 ```

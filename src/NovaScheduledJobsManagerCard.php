@@ -3,6 +3,8 @@
 namespace Llaski\NovaScheduledJobs;
 
 use Laravel\Nova\Card;
+use Laravel\Nova\Nova;
+use Llaski\NovaScheduledJobs\Http\Middleware\Authorize;
 
 class NovaScheduledJobsManagerCard extends Card
 {
@@ -21,5 +23,15 @@ class NovaScheduledJobsManagerCard extends Card
     public function component()
     {
         return 'nova-scheduled-jobs-manage';
+    }
+
+    public function __construct($component = null)
+    {
+        parent::__construct($component);
+
+        // Set default authorisation
+        $this->canSee(function ($request) {
+            return NovaScheduledJobsTool::authorize($request);
+        });
     }
 }
