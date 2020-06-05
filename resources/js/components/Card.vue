@@ -4,7 +4,7 @@
 
         <p v-if="!loading && !jobs.length">{{ __('You do not currently have any scheduled jobs.') }}</p>
 
-        <loader v-if="loading" class="mb-4"></loader>
+        <loader v-if="loading" class="p-4 mb-4"></loader>
 
         <table v-if="!loading && jobs.length" class="table w-full">
             <thead>

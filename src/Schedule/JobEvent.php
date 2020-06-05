@@ -15,4 +15,8 @@ class JobEvent extends Event
         return $this->event->description;
     }
 
+    public function dispatchAs()
+    {
+        return 'job';
+    }
 }
