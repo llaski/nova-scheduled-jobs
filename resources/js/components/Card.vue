@@ -1,6 +1,6 @@
 <template>
-    <card class="h-auto p-4">
-        <h2 class="text-90 font-light mb-4">{{ __('Scheduled Jobs') }}</h2>
+    <card class="h-auto">
+        <h3 class="text-90 ml-4 mt-4 font-light mb-4">{{ __('Scheduled Jobs') }}</h3>
 
         <p v-if="!loading && !jobs.length">{{ __('You do not currently have any scheduled jobs.') }}</p>
 
