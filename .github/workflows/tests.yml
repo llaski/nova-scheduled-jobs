@@ -1,0 +1,44 @@
+name: Tests
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: ['7.2', '7.3', '7.4']
+
+    name: Tests
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
+      
+      - name: Setup Laravel Nova Credentials
+        run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_PASSWORD}
+        env:
+          NOVA_PASSWORD: ${{ secrets.NOVA_PASSWORD }}
+          NOVA_USERNAME: ${{ secrets.NOVA_USERNAME }}
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+
+      - name: Install composer dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --prefer-dist --no-progress
+        
+      - name: Execute tests
+        run: vendor/bin/phpunit --verbose
