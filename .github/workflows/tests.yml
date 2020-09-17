@@ -1,0 +1,78 @@
+name: Tests
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: ['7.2', '7.3', '7.4']
+
+    name: Tests
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
+      
+      - name: Setup Laravel Nova Credentials
+        run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_PASSWORD}
+        env:
+          NOVA_PASSWORD: ${{ secrets.NOVA_PASSWORD }}
+          NOVA_USERNAME: ${{ secrets.NOVA_USERNAME }}
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+
+      - name: Install composer dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --prefer-dist --no-progress
+        
+      - name: Create .env file
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+      
+      - name: Setup .env file
+        run: |
+          sed -i "s~DB_PORT=3306~DB_PORT=${DB_PORT}~" .env
+          sed -i "s~GOOGLE_TAG_MANAGER_ID=~GOOGLE_TAG_MANAGER_ID=fake-tag-id~" .env
+          sed -i "s~AWS_KEY=~AWS_KEY=${AWS_KEY}~" .env
+          sed -i "s~AWS_SECRET=~AWS_SECRET=${AWS_SECRET}~" .env
+          sed -i "s~AWS_PUBLIC_REGION=~AWS_PUBLIC_REGION=${AWS_PUBLIC_REGION}~" .env
+          sed -i "s~AWS_PUBLIC_BUCKET=~AWS_PUBLIC_BUCKET=${AWS_PUBLIC_BUCKET}~" .env
+          sed -i "s~AWS_PRIVATE_REGION=~AWS_PRIVATE_REGION=${AWS_PRIVATE_REGION}~" .env
+          sed -i "s~AWS_PRIVATE_BUCKET=~AWS_PRIVATE_BUCKET=${AWS_PRIVATE_BUCKET}~" .env
+        env:
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+          AWS_KEY: ${{ secrets.AWS_KEY }}
+          AWS_SECRET: ${{ secrets.AWS_SECRET }}
+          AWS_PUBLIC_REGION: ${{ secrets.AWS_PUBLIC_REGION }}
+          AWS_PUBLIC_BUCKET: ${{ secrets.AWS_PUBLIC_BUCKET }}
+          AWS_PRIVATE_REGION: ${{ secrets.AWS_PRIVATE_REGION }}
+          AWS_PRIVATE_BUCKET: ${{ secrets.AWS_PRIVATE_BUCKET }}
+
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v2
+
+      - name: Execute tests
+        run: vendor/bin/phpunit --verbose
+      
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v2
+      #   if: failure()
+      #   with:
+      #     name: Logs
+      #     path: ./storage/logs/*.log
