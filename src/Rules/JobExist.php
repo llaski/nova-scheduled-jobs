@@ -8,11 +8,17 @@ class JobExist implements Rule
 {
     public function passes($attribute, $value)
     {
-        return class_exists($value) && strpos($value, '\Jobs') !== false;
+        // If it's a job class
+        if(class_exists($value)) {
+            return strpos($value, '\Job') !== false;
+        }
+
+        // Check if it's a registered command
+        return isset(\Artisan::all()[$value]);
     }
-    
+
     public function message()
     {
-        return 'The given value must be a valid job.';
+        return 'The given value must be a valid command or job.';
     }
 }

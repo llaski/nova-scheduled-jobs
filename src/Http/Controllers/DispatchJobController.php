@@ -3,6 +3,7 @@
 namespace Llaski\NovaScheduledJobs\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Llaski\NovaScheduledJobs\Rules\JobExist;
 
 class DispatchJobController
@@ -18,8 +19,15 @@ class DispatchJobController
             'command' => ['required', 'string', new JobExist]
         ]);
 
-        $command = resolve($data['command']);
+        // Dispatch a job
+        if(class_exists($data['command'])) {
+            $command = resolve($data['command']);
 
-        dispatch($command);
+            dispatch($command);
+            return;
+        }
+
+        // Otherwise call the command
+        Artisan::call($data['command']);
     }
 }

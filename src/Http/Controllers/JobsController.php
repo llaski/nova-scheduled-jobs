@@ -32,6 +32,7 @@ class JobsController
                     'withoutOverlapping' => $scheduleEvent->withoutOverlapping,
                     'onOneServer' => $scheduleEvent->onOneServer,
                     'evenInMaintenanceMode' => $scheduleEvent->evenInMaintenanceMode,
+                    'dispatch' => $scheduleEvent->dispatchAs(),
                 ];
             });
     }
