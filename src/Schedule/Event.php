@@ -48,4 +48,5 @@ abstract class Event
         return $this->event->{$name};
     }
 
+    abstract function dispatchAs();
 }

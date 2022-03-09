@@ -3,7 +3,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/llaski/nova-scheduled-jobs.svg?style=flat-square)](https://packagist.org/packages/llaski/nova-scheduled-jobs)
 [![Total Downloads](https://img.shields.io/packagist/dt/llaski/nova-scheduled-jobs.svg?style=flat-square)](https://packagist.org/packages/llaski/nova-scheduled-jobs)
 
-## Includes both a tool and card to display your scheduled commands and jobs
+## Includes a tool and a few cards to display your scheduled commands and jobs
 
 ![Nova Scheduled Jobs Tool Screenshot](https://raw.githubusercontent.com/llaski/screenshots/master/nova-scheduled-jobs-tool.png)
 
@@ -28,7 +28,9 @@ public function tools()
 {
     return [
         // ...
-        new \Llaski\NovaScheduledJobs\NovaScheduledJobsTool,
+        //new \Llaski\NovaScheduledJobs\NovaScheduledJobsTool,
+        \Llaski\NovaScheduledJobs\NovaScheduledJobsTool::make(),
+        //\Llaski\NovaScheduledJobs\NovaScheduledJobsTool::make()->hide(),
     ];
 }
 ```
@@ -45,6 +47,45 @@ public function cards()
     return [
         // ...
         new \Llaski\NovaScheduledJobs\NovaScheduledJobsCard,
+    ];
+}
+```
+
+Alternatively, if you'd rather render the card used in the tool, on your dashboard;
+
+```php
+// in app/Providers/NovaServiceProvider.php
+
+// ...
+
+public function cards()
+{
+    return [
+        // ...
+        new \Llaski\NovaScheduledJobs\NovaScheduledJobsManagerCard,
+    ];
+}
+```
+### Authorisation
+
+All cards and routes consult the tool for permissions, this means you create your permission handler by defining it in the `canSee` callback on the tool;
+
+```php
+// in app/Providers/NovaServiceProvider.php
+
+// ...
+
+public function tools()
+{
+    return [
+        // ...
+        \Llaski\NovaScheduledJobs\NovaScheduledJobsTool::make()
+            ->canSee(
+                function($request)
+                { 
+                    return false; 
+                }
+            ),
     ];
 }
 ```
