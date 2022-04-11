@@ -1,10 +1,10 @@
-Nova.booting((Vue, router) => {
-    Vue.component('nova-scheduled-jobs', require('./components/Card'))
-    Vue.component('dispatch-job-modal', require('./components/DispatchJobModal'))
+import Card from './components/Card'
+import DispatchJobModal from './components/DispatchJobModal'
+import Tool from './components/Tool'
 
-    router.addRoutes([{
-        name: 'NovaScheduledJobs',
-        path: '/scheduled-jobs',
-        component: require('./components/Tool'),
-    }, ])
+Nova.booting((app, router) => {
+    app.component('nova-scheduled-jobs', Card)
+    app.component('dispatch-job-modal', DispatchJobModal)
+
+    Nova.inertia('NovaScheduledJobs', Tool)
 })
