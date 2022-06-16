@@ -23,8 +23,10 @@ abstract class Event
         try {
             $reflection = new \ReflectionClass($this->className());
             return (string) Arr::get($reflection->getDefaultProperties(), 'description', '');
+        } catch (\InvalidArgumentException $exception) {
+            return $this->event->description;
         } catch (\ReflectionException $exception) {
-            return '';
+            return $this->event->description;
         }
     }
 

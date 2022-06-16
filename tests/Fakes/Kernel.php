@@ -42,14 +42,16 @@ class Kernel extends ConsoleKernel
 
             if (Arr::has($job, 'job')) {
                 $command = $schedule->job($job['job']);
-            } else {
+            } else if (Arr::has($job, 'command')) {
                 $command = $schedule->command($job['command']);
+            } else if (Arr::has($job, 'exec')) {
+                $command = $schedule->exec($job['exec']);
             }
 
             $command->{$job['schedule']}();
 
-            collect(Arr::get($job, 'additionalOptions', []))->each(function ($additionalOption) use ($command) {
-                $command->{$additionalOption}();
+            collect(Arr::get($job, 'additionalOptions', []))->each(function ($parameter, $additionalOption) use ($command) {
+                $command->{$additionalOption}($parameter);
             });
         });
     }

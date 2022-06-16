@@ -34,16 +34,23 @@ class ListJobsTest extends TestCase
                     'command' => 'store-fake-metrics',
                     'schedule' => 'hourly',
                     'additionalOptions' => [
-                        'withoutOverlapping',
-                        'onOneServer',
-                        'evenInMaintenanceMode'
+                        'withoutOverlapping' => null,
+                        'onOneServer' => null,
+                        'evenInMaintenanceMode' => null
+                    ]
+                ],
+                [
+                    'exec' => 'df',
+                    'schedule' => 'hourly',
+                    'additionalOptions' => [
+                        'description' => 'Check disk usage',
                     ]
                 ],
                 [
                     'job' => UpdateOrders::class,
                     'schedule' => 'daily',
                     'additionalOptions' => [
-                        'evenInMaintenanceMode'
+                        'evenInMaintenanceMode' => null
                     ]
                 ],
             ],
@@ -67,7 +74,7 @@ class ListJobsTest extends TestCase
             ],
             [
                 'command' => 'store-fake-metrics',
-                'description' => '',
+                'description' => null,
                 'expression' => '0 * * * *',
                 'humanReadableExpression' => 'At the hour past every hour on every day.',
                 'nextRunAt' => Cron::nextRunAt('0 * * * *')->toIso8601String(),
@@ -75,6 +82,17 @@ class ListJobsTest extends TestCase
                 'withoutOverlapping' => true,
                 'onOneServer' => true,
                 'evenInMaintenanceMode' => true,
+            ],
+            [
+                'command' => null,
+                'description' => 'Check disk usage',
+                'expression' => '0 * * * *',
+                'humanReadableExpression' => 'At the hour past every hour on every day.',
+                'nextRunAt' => Cron::nextRunAt('0 * * * *')->toIso8601String(),
+                'timezone' => 'UTC',
+                'withoutOverlapping' => false,
+                'onOneServer' => false,
+                'evenInMaintenanceMode' => false,
             ],
             [
                 'command' => UpdateOrders::class,
