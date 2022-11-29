@@ -1,10 +1,10 @@
-import Card from './components/Card'
 import DispatchJobModal from './components/DispatchJobModal'
-import Tool from './components/Tool'
+import Card from './components/Card'
+import Tool from './pages/Tool'
 
-Nova.booting((app, router) => {
-    app.component('nova-scheduled-jobs', Card)
-    app.component('dispatch-job-modal', DispatchJobModal)
+Nova.booting((app, store) => {
+    app.component('NovaScheduledJobsCard', Card)
+    app.component('DispatchJobModal', DispatchJobModal)
 
     Nova.inertia('NovaScheduledJobs', Tool)
 })

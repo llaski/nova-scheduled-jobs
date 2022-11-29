@@ -3,13 +3,13 @@
 namespace Llaski\NovaScheduledJobs;
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Http\Middleware\Authenticate;
 use Laravel\Nova\Nova;
 use Llaski\NovaScheduledJobs\Http\Middleware\Authorize;
 
-class ToolServiceProvider extends ServiceProvider
+class ServiceProvider extends IlluminateServiceProvider
 {
     /**
      * Bootstrap any application services.
@@ -23,7 +23,8 @@ class ToolServiceProvider extends ServiceProvider
         });
 
         Nova::serving(function (ServingNova $event) {
-            //
+            Nova::script('nova-scheduled-jobs', __DIR__ . '/../dist/js/app.js');
+            Nova::style('nova-scheduled-jobs', __DIR__ . '/../dist/css/app.css');
         });
     }
 

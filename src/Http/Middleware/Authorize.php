@@ -3,7 +3,7 @@
 namespace Llaski\NovaScheduledJobs\Http\Middleware;
 
 use Laravel\Nova\Nova;
-use Llaski\NovaScheduledJobs\NovaScheduledJobs;
+use Llaski\NovaScheduledJobs\Tool;
 
 class Authorize
 {
@@ -29,6 +29,6 @@ class Authorize
      */
     public function matchesTool($tool)
     {
-        return $tool instanceof NovaScheduledJobs;
+        return $tool instanceof Tool;
     }
 }
