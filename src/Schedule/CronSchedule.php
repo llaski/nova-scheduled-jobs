@@ -1,6 +1,6 @@
 <?php
 
-namespace Llaski\NovaScheduledJobs\Vendor;
+namespace Llaski\NovaScheduledJobs\Schedule;
 
 /*
  * Credit to https://gist.github.com/m4tthumphrey/8236756
@@ -229,7 +229,6 @@ class CronSchedule
                     if ($intNumber1 > $intNumber2) {
                         throw new \Exception("Invalid range ($errorName).");
                     }
-
                 }
             }
 
@@ -243,7 +242,6 @@ class CronSchedule
                 if (($intIncrement < 1) || ($intIncrement > $rangeMax)) {
                     throw new \Exception("Out of bounds ($errorName).");
                 }
-
             }
 
             // Apply range and increment
@@ -290,7 +288,6 @@ class CronSchedule
                     $items[$number] = true;
                 }
             }
-
         }
         ksort($items);
         return $items;
@@ -734,7 +731,6 @@ class CronSchedule
             if (($key = key($arrItems)) < $beforeItem) {
                 return $key;
             }
-
         } while (prev($arrItems));
 
         // If still nothing found, we may have exhausted our options.
@@ -1136,7 +1132,6 @@ class CronSchedule
             } else {
                 return $this->natlangApply('elemMin: after_the_hour_every_X_minute' . ($elem['number1'] == 1 ? '' : '_plural'), $elem['number1']);
             }
-
         }
 
         $txt = $this->natlangApply('elemMin: every_consecutive_minute' . ($elem['interval'] == 1 ? '' : '_plural'), $elem['interval']);
@@ -1161,7 +1156,6 @@ class CronSchedule
             } else {
                 return $this->natlangApply('elemHour: past_X:00', $this->natlangPad2($elem['number1']));
             }
-
         }
 
         if ($asBetween) {
@@ -1273,38 +1267,38 @@ class CronSchedule
 
         switch ($classMinutes . $classHours) {
 
-            // Special case: Unspecified date + Unspecified month
-            //
-            // Rule: The language for unspecified fields is omitted if a more detailed field has already been explained.
-            //
-            // The minutes field always yields an explaination, at the very least in the form of 'every minute'. This rule states that if the
-            // hour is not specified, it can be omitted because 'every minute' is already sufficiently clear.
-            //
+                // Special case: Unspecified date + Unspecified month
+                //
+                // Rule: The language for unspecified fields is omitted if a more detailed field has already been explained.
+                //
+                // The minutes field always yields an explaination, at the very least in the form of 'every minute'. This rule states that if the
+                // hour is not specified, it can be omitted because 'every minute' is already sufficiently clear.
+                //
 
             case '00':
                 $txtTime = $txtMinutes[0];
                 break;
 
-            // Special case: Fixed minutes and fixed hours
-            //
-            // The default writing would be something like 'every 20 minutes past 04:00', but the more common phrasing would be: At 04:20.
-            //
-            // We will switch ForceDateExplaination on, so that even a non-specified date yields an explaination (e.g. 'every day')
-            //
+                // Special case: Fixed minutes and fixed hours
+                //
+                // The default writing would be something like 'every 20 minutes past 04:00', but the more common phrasing would be: At 04:20.
+                //
+                // We will switch ForceDateExplaination on, so that even a non-specified date yields an explaination (e.g. 'every day')
+                //
 
             case '11':
                 $txtTime = $this->natlangApply('elemMin: at_X:Y', $this->natlangPad2($this->_cronHours['elements'][0]['number1']), $this->natlangPad2($this->_cronMinutes['elements'][0]['number1']));
                 $switchForceDateExplaination = true;
                 break;
 
-            // Special case: Between :00 and :59
-            //
-            // If hours are specified, but minutes are not, then the minutes string will yield something like 'every minute'. We must the
-            // differentiate the hour specification because the minutes specification does not relate to all minutes past the hour, but only to
-            // those minutes between :00 and :59
-            //
-            // We will switch ForceDateExplaination on, so that even a non-specified date yields an explaination (e.g. 'every day')
-            //
+                // Special case: Between :00 and :59
+                //
+                // If hours are specified, but minutes are not, then the minutes string will yield something like 'every minute'. We must the
+                // differentiate the hour specification because the minutes specification does not relate to all minutes past the hour, but only to
+                // those minutes between :00 and :59
+                //
+                // We will switch ForceDateExplaination on, so that even a non-specified date yields an explaination (e.g. 'every day')
+                //
 
             case '01':
             case '02':
@@ -1312,13 +1306,13 @@ class CronSchedule
                 $switchForceDateExplaination = true;
                 break;
 
-            // Special case: Past the hour
-            //
-            // If minutes are specified and hours are specified, then the specification of minutes is always limited to a maximum of 60 minutes
-            // and always applies to the minutes 'past the hour'.
-            //
-            // We will switch ForceDateExplaination on, so that even a non-specified date yields an explaination (e.g. 'every day')
-            //
+                // Special case: Past the hour
+                //
+                // If minutes are specified and hours are specified, then the specification of minutes is always limited to a maximum of 60 minutes
+                // and always applies to the minutes 'past the hour'.
+                //
+                // We will switch ForceDateExplaination on, so that even a non-specified date yields an explaination (e.g. 'every day')
+                //
 
             case '12':
             case '22':
@@ -1353,16 +1347,16 @@ class CronSchedule
 
         switch ($classDaysOfMonth . $classMonths) {
 
-            // Special case: Unspecified date + Unspecified month
-            //
-            // Rule: The language for unspecified fields is omitted if a more detailed field has already been explained.
-            //
-            // The time fields always yield an explaination, at the very least in the form of 'every minute'. This rule states that if the date
-            // is not specified, it can be omitted because 'every minute' is already sufficiently clear.
-            //
-            // There are some time specifications that do not contain an 'every' reference, but reference a specific time of day. In those cases
-            // the date explaination is enforced.
-            //
+                // Special case: Unspecified date + Unspecified month
+                //
+                // Rule: The language for unspecified fields is omitted if a more detailed field has already been explained.
+                //
+                // The time fields always yield an explaination, at the very least in the form of 'every minute'. This rule states that if the date
+                // is not specified, it can be omitted because 'every minute' is already sufficiently clear.
+                //
+                // There are some time specifications that do not contain an 'every' reference, but reference a specific time of day. In those cases
+                // the date explaination is enforced.
+                //
 
             case '00':
                 $txtDate = '';
@@ -1396,7 +1390,6 @@ class CronSchedule
             } else {
                 $collectDays |= pow(2, $elem['number1']);
             }
-
         }
         if ($collectDays == 127) // * all days
         {
@@ -1405,7 +1398,6 @@ class CronSchedule
             } else {
                 $txtDays = '';
             }
-
         } else {
             $arrDays = array();
             for ($x = 0; $x <= 6; $x++) {
@@ -1424,7 +1416,6 @@ class CronSchedule
             } else {
                 $txtDays = ' ' . $this->natlangApply('elemDOW: on_X', $txtDays);
             }
-
         }
 
         $txtResult = ucfirst($txtTime) . $txtDate . $txtDays;

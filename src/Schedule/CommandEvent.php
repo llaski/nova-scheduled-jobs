@@ -2,22 +2,26 @@
 
 namespace Llaski\NovaScheduledJobs\Schedule;
 
+use Illuminate\Support\Arr;
 use Illuminate\Console\Parser;
+use Illuminate\Console\Application;
 use Illuminate\Contracts\Console\Kernel;
 
 class CommandEvent extends Event
 {
     public function command()
     {
-        preg_match("/artisan.*?\s(.*)/", $this->event->command, $matches);
+        $command = str_replace([Application::phpBinary(), Application::artisanBinary()], [
+            'php',
+            preg_replace("#['\"]#", '', Application::artisanBinary()),
+        ], $this->event->command);
 
-        return $matches[1] ?? null;
+        return $command;
     }
 
     public function className()
     {
-        list($command) = Parser::parse($this->command());
-
+        [$command] = Parser::parse(str_replace('php artisan ', '', $this->command()));
         $commands = app(Kernel::class)->all();
 
         if (!isset($commands[$command])) {
@@ -26,5 +30,4 @@ class CommandEvent extends Event
 
         return get_class($commands[$command]);
     }
-
 }

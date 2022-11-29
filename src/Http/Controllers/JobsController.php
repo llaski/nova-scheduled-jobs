@@ -2,38 +2,31 @@
 
 namespace Llaski\NovaScheduledJobs\Http\Controllers;
 
-use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Contracts\Console\Kernel;
-use Llaski\NovaScheduledJobs\Schedule\Factory as ScheduleFactory;
+use Illuminate\Console\Scheduling\Schedule;
+use Llaski\NovaScheduledJobs\Schedule\EventFactory;
+use Llaski\NovaScheduledJobs\Http\Resources\JobResource;
+use Llaski\NovaScheduledJobs\Http\Resources\JobCollection;
 
 class JobsController
 {
-
     /**
-     * Return a list of all scheduled jobs
+     * Execute the console command.
      *
-     * @param  Kernel   $kernel (Not sure why we need to inject the kernel, but without it we don't get the schedueld jobs. Prob something to do with how the schedule method is called from the kernel)
-     * @param  Schedule $schedule
-     * @return array
+     * @param  \Illuminate\Contracts\Console\Kernel   $kernel (Not sure why we need to inject the kernel, but without it we don't get the schedueld jobs. Prob something to do with how the schedule method is called from the kernel)
+     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @return void
+     *
+     * @throws \Exception
      */
-    public function index(Kernel $kernel, Schedule $schedule)
+    public function __invoke(Kernel $kernel, Schedule $schedule)
     {
-        return collect($schedule->events())
-            ->map(function ($event) {
-                $scheduleEvent = ScheduleFactory::make($event);
+        $jobs = collect($schedule->events())->map(function ($event) {
+            return EventFactory::make($event);
+        });
 
-                return [
-                    'command' => $scheduleEvent->command(),
-                    'description' => $scheduleEvent->description(),
-                    'expression' => $scheduleEvent->expression,
-                    'humanReadableExpression' => $scheduleEvent->humanReadableExpression(),
-                    'nextRunAt' => $scheduleEvent->nextRunAt()->toIso8601String(),
-                    'timezone' => $scheduleEvent->timezone(),
-                    'withoutOverlapping' => $scheduleEvent->withoutOverlapping,
-                    'onOneServer' => $scheduleEvent->onOneServer,
-                    'evenInMaintenanceMode' => $scheduleEvent->evenInMaintenanceMode,
-                ];
-            });
+        return new JobCollection($jobs);
     }
-
 }
