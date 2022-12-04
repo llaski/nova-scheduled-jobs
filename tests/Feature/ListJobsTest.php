@@ -67,7 +67,7 @@ class ListJobsTest extends TestCase
                     "evenInMaintenanceMode" => false,
                 ],
                 [
-                    "command" => "Closure at: /Users/larrylaski/Sites/OpenSource/laravel-nova-open-source-packages/nova-components/NovaScheduledJobs/tests/Fixtures/Console/Kernel.php:46",
+                    "command" => "Closure at: /Users/larrylaski/Sites/OpenSource/laravel-nova-open-source-packages/nova-components/NovaScheduledJobs/tests/Fixtures/Console/Kernel.php:38",
                     "description" => "",
                     "expression" => '0   0 * * 0',
                     "expressionHumanReadable" => "At 00:00 on Sundays.",
