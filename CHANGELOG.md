@@ -11,6 +11,8 @@ All notable changes to `nova-scheduled-jobs` will be documented in this file
     (see [Readme](https://github.com/llaski/nova-scheduled-jobs/blob/master/README.md) for upgrade,
     just follow normal install instructions)
 -   Updated and fixed Authorization middleware structure
+-   Routes have changed /nova-scheduled-jobs -> Returns inertiajs component
+    /nova-scheduled-jobs/jobs -> Returns json w/ list of jobs /nova-scheduled-jobs/dispatch -> Dispatches command
 
 ### Other Changes
 

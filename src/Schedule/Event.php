@@ -21,6 +21,7 @@ abstract class Event
         $this->event = $event;
     }
 
+    abstract public function command();
 
     abstract public function className();
 

@@ -2,11 +2,8 @@
 
 namespace Llaski\NovaScheduledJobs\Tests;
 
-use DateTimeZone;
-use Cron\CronExpression;
 use Illuminate\Support\Carbon;
 use Llaski\NovaScheduledJobs\Tests\TestCase;
-use Llaski\NovaScheduledJobs\Schedule\CronSchedule;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\Console\Kernel;
 
 class ListJobsTest extends TestCase

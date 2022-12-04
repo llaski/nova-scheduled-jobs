@@ -5,8 +5,6 @@ namespace Llaski\NovaScheduledJobs\Tests;
 use Illuminate\Support\Facades\Bus;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\Jobs\ProcessPodcast;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\Jobs\ProcessPodcastWithDependencies;
-use Llaski\NovaScheduledJobs\Tests\Fixtures\Jobs\UpdateOrders;
-use Llaski\NovaScheduledJobs\Tests\Fixtures\Jobs\UpdateOrdersWithDependencies;
 
 class DispatchJobTest extends TestCase
 {
