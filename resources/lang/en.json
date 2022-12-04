@@ -1,14 +1,18 @@
 {
-    "Are you sure you want to dispatch the Job?": "Are you sure you want to dispatch the Job?",
-    "Command/Job": "Command/Job",
-    "Description": "Description",
-    "Dispatch": "Dispatch",
-    "Expression": "Expression",
-    "Next Run At": "Next Run At",
-    "On One Server": "On One Server",
-    "Run In Maintenance Mode": "Run In Maintenance Mode",
-    "Schedule": "Schedule",
     "Scheduled Jobs": "Scheduled Jobs",
+    "You do not currently have any scheduled jobs.": "You do not currently have any scheduled jobs.",
+    "Are you sure you want to dispatch the Job?": "Are you sure you want to dispatch the Job?",
+    "Name": "Name",
+    "Name/Description": "Name/Description",
+    "Next Due": "Next Due",
+    "Dispatch": "Dispatch",
+    "Dispatch Job": "Dispatch Job",
+    "Confirm": "Confirm",
+    "Expression": "Expression",
+    "Timezone": "Timezone",
     "Without Overlapping": "Without Overlapping",
-    "You do not currently have any scheduled jobs.": "You do not currently have any scheduled jobs."
+    "On One Server": "On One Server",
+    "Run In Background": "Run In Background",
+    "Run In Maintenance Mode": "Run In Maintenance Mode",
+    "The job was dispatched!": "The job was dispatched!"
 }

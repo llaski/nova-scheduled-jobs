@@ -1,43 +1,87 @@
 <template>
-    <modal @modal-close="handleClose">
+    <Modal :show="show" role="alertdialog" size="md">
         <form
             @submit.prevent="handleConfirm"
-            slot-scope="props"
-            class="bg-white rounded-lg shadow-lg overflow-hidden"
-            style="width: 460px"
+            class="mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden"
         >
-            <slot :command="command">
-                <div class="p-8">
-                    <heading :level="2" class="mb-6">{{ __('Dispatch') }} - <b>{{ command }}</b></heading>
-                    <p class="text-80 leading-normal">{{ __('Are you sure you want to dispatch the Job?') }}</p>
-                </div>
+            <slot>
+                <ModalHeader>
+                    {{ __("Dispatch Job") }}
+                </ModalHeader>
+                <ModalContent>
+                    <p class="mb-2 leading-normal">
+                        {{
+                            __(
+                                "Are you sure you want to dispatch the following Job?"
+                            )
+                        }}
+                    </p>
+                    <p class="font-bold">{{ command }}</p>
+                </ModalContent>
             </slot>
 
-            <div class="bg-30 px-6 py-3 flex">
+            <ModalFooter>
                 <div class="ml-auto">
-                    <button type="button" data-testid="cancel-button" dusk="cancel-dispatch-job-button" @click.prevent="handleClose" class="btn text-80 font-normal h-9 px-3 mr-3 btn-link">{{ __('Cancel') }}</button>
-                    <button id="confirm-dispatch-job-button" ref="confirmButton" data-testid="confirm-button" type="submit" class="btn btn-default btn-primary">{{ __('Dispatch') }}</button>
+                    <LinkButton
+                        type="button"
+                        data-testid="cancel-button"
+                        dusk="cancel-delete-button"
+                        @click.prevent="handleClose"
+                        class="mr-3"
+                    >
+                        {{ __("Cancel") }}
+                    </LinkButton>
+
+                    <LoadingButton
+                        ref="confirmButton"
+                        dusk="confirm-delete-button"
+                        :processing="working"
+                        :disabled="working"
+                        component="DefaultButton"
+                        type="submit"
+                    >
+                        {{ __("Confirm") }}
+                    </LoadingButton>
                 </div>
-            </div>
+            </ModalFooter>
         </form>
-    </modal>
+    </Modal>
 </template>
 
 <script>
-    export default {
-        props: {
-            command: String,
+import startCase from "lodash/startCase";
+
+export default {
+    emits: ["confirm", "close"],
+
+    props: {
+        show: { type: Boolean, default: false },
+        command: { type: String, default: "" },
+    },
+
+    data: () => ({
+        working: false,
+    }),
+
+    methods: {
+        handleClose() {
+            this.$emit("close");
+            this.working = false;
         },
-        methods: {
-            handleClose() {
-                this.$emit('close')
-            },
-            handleConfirm() {
-                this.$emit('confirm')
-            },
+
+        handleConfirm() {
+            this.$emit("confirm");
+            this.working = true;
         },
-        mounted() {
-            this.$refs.confirmButton.focus()
-        },
-    }
+    },
+
+    /**
+     * Mount the component.
+     */
+    mounted() {
+        this.$nextTick(() => {
+            // this.$refs.confirmButton.button.focus()
+        });
+    },
+};
 </script>

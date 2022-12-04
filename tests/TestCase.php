@@ -3,8 +3,12 @@
 namespace Llaski\NovaScheduledJobs\Tests;
 
 use Illuminate\Support\Facades\Route;
-use Llaski\NovaScheduledJobs\NovaScheduledJobsServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Laravel\Nova\Http\Middleware\BootTools;
+use Llaski\NovaScheduledJobs\ServiceProvider;
+use Laravel\Nova\Http\Middleware\HandleInertiaRequests;
+use Laravel\Nova\Http\Middleware\DispatchServingNovaEvent;
+use Llaski\NovaScheduledJobs\Tests\Fixtures\NovaServiceProvider;
 
 abstract class TestCase extends OrchestraTestCase
 {
@@ -12,7 +16,12 @@ abstract class TestCase extends OrchestraTestCase
     {
         parent::setUp();
 
-        Route::middlewareGroup('nova', []);
+        Route::middlewareGroup('nova', [
+            'web',
+            HandleInertiaRequests::class,
+            DispatchServingNovaEvent::class,
+            BootTools::class,
+        ]);
 
         $this->withoutExceptionHandling();
     }
@@ -20,8 +29,8 @@ abstract class TestCase extends OrchestraTestCase
     protected function getPackageProviders($app)
     {
         return [
-            NovaScheduledJobsServiceProvider::class,
+            NovaServiceProvider::class,
+            ServiceProvider::class,
         ];
     }
-
 }

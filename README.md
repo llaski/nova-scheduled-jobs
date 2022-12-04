@@ -1,26 +1,34 @@
 # Nova Scheduled Jobs
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/llaski/nova-scheduled-jobs.svg?style=flat-square)](https://packagist.org/packages/llaski/nova-scheduled-jobs)
+![Test Suite](https://github.com/llaski/nova-scheduled-jobs/actions/workflows/tests.yml/badge.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/llaski/nova-scheduled-jobs.svg?style=flat-square)](https://packagist.org/packages/llaski/nova-scheduled-jobs)
 
 ## Includes both a tool and card to display your scheduled commands and jobs
 
-![Nova Scheduled Jobs Tool Screenshot](https://raw.githubusercontent.com/llaski/screenshots/master/nova-scheduled-jobs-tool.png)
+![Nova Scheduled Jobs Tool Screenshot](https://raw.githubusercontent.com/llaski/nova-scheduled-jobs/screenshots/master/Tool.png)
 
-![Nova Scheduled Jobs Card Screenshot](https://raw.githubusercontent.com/llaski/screenshots/master/nova-scheduled-jobs-card.png)
+![Nova Scheduled Jobs Card Screenshot](https://raw.githubusercontent.com/llaski/nova-scheduled-jobs/screenshots/master/Card.png)
 
 ## Installation
 
-You can install the package in to a Laravel app that uses [Nova](https://nova.laravel.com) via composer:
+You can install the package in to a Laravel app that uses [Nova](https://nova.laravel.com) via
+composer:
 
 ```bash
 composer require llaski/nova-scheduled-jobs
 ```
 
-To setup the tool, you must register the tool with Nova. This is typically done in the `tools` method of the `NovaServiceProvider`.
+To setup the tool, you must register the tool with Nova. This is typically done in the `tools`
+method of the `NovaServiceProvider`.
 
 ```php
 // in app/Providers/NovaServiceProvider.php
+<?php
+
+namespace App\Providers;
+
+use Llaski\NovaScheduledJobs\Tool as NovaScheduledJobsTool;
 
 // ...
 
@@ -28,31 +36,36 @@ public function tools()
 {
     return [
         // ...
-        new \Llaski\NovaScheduledJobs\NovaScheduledJobsTool,
+        new NovaScheduledJobsTool,
     ];
 }
 ```
 
-To setup the card, you must register the card with Nova. This is typically done in the `cards` method of the `NovaServiceProvider`.
+To setup the card, you must register the card with Nova. This is typically done in the `cards`
+method of your resource or dashboard. For example:
 
 ```php
-// in app/Providers/NovaServiceProvider.php
+// in app/Nova/Dashboards/Main.php
+<?php
 
+namespace App\Nova\Dashboards;
+
+use Llaski\NovaScheduledJobs\Card as NovaScheduledJobsCard;
 // ...
 
 public function cards()
 {
     return [
         // ...
-        new \Llaski\NovaScheduledJobs\NovaScheduledJobsCard,
+        new NovaScheduledJobsCard,
     ];
 }
 ```
 
 ### Testing
 
-``` bash
-phpunit
+```zsh
+vendor/bin/phpunit --verbose
 ```
 
 ### Changelog
@@ -65,12 +78,13 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ### Security
 
-If you discover any security related issues, please email larry.laski@gmail.com instead of using the issue tracker.
+If you discover any security related issues, please email larry.laski@gmail.com instead of using the
+issue tracker.
 
 ## Credits
 
-- [Larry Laski](https://github.com/llaski)
-- [All Contributors](../../contributors)
+-   [Larry Laski](https://github.com/llaski)
+-   [All Contributors](../../contributors)
 
 ## License
 
