@@ -26,7 +26,7 @@ jobs:
             - name: Setup Laravel Nova Credentials
               run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_LICENSE_KEY}
               env:
-                  NOVA_PASSWORD: ${{ secrets.NOVA_PASSWORD }}
+                  NOVA_USERNAME: ${{ secrets.NOVA_USERNAME }}
                   NOVA_LICENSE_KEY: ${{ secrets.NOVA_LICENSE_KEY }}
 
             - name: Cache composer dependencies
