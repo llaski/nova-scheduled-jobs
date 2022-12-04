@@ -3,8 +3,19 @@
 namespace Llaski\NovaScheduledJobs\Tests;
 
 use Illuminate\Support\Facades\Route;
-use Llaski\NovaScheduledJobs\NovaScheduledJobsServiceProvider;
+use Laravel\Nova\NovaCoreServiceProvider;
+use Laravel\Nova\Http\Middleware\Authorize;
+use Laravel\Nova\Http\Middleware\BootTools;
+use Laravel\Nova\Http\Middleware\ServeNova;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Llaski\NovaScheduledJobs\ServiceProvider;
+use Laravel\Nova\Http\Middleware\Authenticate;
+use Illuminate\Contracts\Http\Kernel as HttpKernel;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Laravel\Nova\Http\Middleware\HandleInertiaRequests;
+use Laravel\Nova\Http\Middleware\DispatchServingNovaEvent;
+use Llaski\NovaScheduledJobs\Tests\Fixtures\NovaServiceProvider;
+use Inertia\ServiceProvider as InertiaServiceProvider;
 
 abstract class TestCase extends OrchestraTestCase
 {
@@ -12,16 +23,29 @@ abstract class TestCase extends OrchestraTestCase
     {
         parent::setUp();
 
-        Route::middlewareGroup('nova', []);
+        Route::middlewareGroup('nova', [
+            'web',
+            HandleInertiaRequests::class,
+            DispatchServingNovaEvent::class,
+            BootTools::class,
+        ]);
 
-        $this->withoutExceptionHandling();
+        // Route::middlewareGroup('nova:api', [
+        //     'nova',
+        //     Authenticate::class,
+        //     Authorize::class,
+        // ]);
+
+        // $this->withoutExceptionHandling();
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            NovaScheduledJobsServiceProvider::class,
+            // InertiaServiceProvider::class,
+            // NovaCoreServiceProvider::class,
+            NovaServiceProvider::class,
+            ServiceProvider::class,
         ];
     }
-
 }

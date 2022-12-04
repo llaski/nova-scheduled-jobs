@@ -3,19 +3,27 @@
 namespace Llaski\NovaScheduledJobs\Tests\Fixtures\Jobs;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class UpdateOrders implements ShouldQueue
+class ProcessPodcast implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /*
-    Optional Description that would be displayed for package, not necessary to run job
+    protected $description = 'process the podcast';
+
+    /**
+     * Create a new job instance.
+     *
+     * @return void
      */
-    public $description = 'Fake job to update orders...';
+    public function __construct()
+    {
+        //
+    }
 
     /**
      * Execute the job.
@@ -24,6 +32,6 @@ class UpdateOrders implements ShouldQueue
      */
     public function handle()
     {
-        //Some fake logic goes here...
+        //
     }
 }
