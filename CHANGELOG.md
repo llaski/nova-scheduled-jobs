@@ -13,6 +13,7 @@ All notable changes to `nova-scheduled-jobs` will be documented in this file
 -   Updated and fixed Authorization middleware structure
 -   Routes have changed /nova-scheduled-jobs -> Returns inertiajs component
     /nova-scheduled-jobs/jobs -> Returns json w/ list of jobs /nova-scheduled-jobs/dispatch -> Dispatches command
+    -   Temporarily removed localization support. If you need additional support can copy the keys in the resources/lang/en.json file and add them into your own language file.
 
 ### Other Changes
 
