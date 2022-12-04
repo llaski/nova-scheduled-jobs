@@ -6,9 +6,9 @@
 
 ## Includes both a tool and card to display your scheduled commands and jobs
 
-![Nova Scheduled Jobs Tool Screenshot](https://raw.githubusercontent.com/llaski/screenshots/master/nova-scheduled-jobs-tool.png)
+![Nova Scheduled Jobs Tool Screenshot](https://raw.githubusercontent.com/llaski/nova-scheduled-jobs/screenshots/master/Tool.png)
 
-![Nova Scheduled Jobs Card Screenshot](https://raw.githubusercontent.com/llaski/screenshots/master/nova-scheduled-jobs-card.png)
+![Nova Scheduled Jobs Card Screenshot](https://raw.githubusercontent.com/llaski/nova-scheduled-jobs/screenshots/master/Card.png)
 
 ## Installation
 
