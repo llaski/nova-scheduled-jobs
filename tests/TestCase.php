@@ -30,20 +30,12 @@ abstract class TestCase extends OrchestraTestCase
             BootTools::class,
         ]);
 
-        // Route::middlewareGroup('nova:api', [
-        //     'nova',
-        //     Authenticate::class,
-        //     Authorize::class,
-        // ]);
-
-        // $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            // InertiaServiceProvider::class,
-            // NovaCoreServiceProvider::class,
             NovaServiceProvider::class,
             ServiceProvider::class,
         ];

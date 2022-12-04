@@ -9,12 +9,6 @@ use Llaski\NovaScheduledJobs\Tests\TestCase;
 use Llaski\NovaScheduledJobs\Schedule\CronSchedule;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\Console\Kernel;
 
-// use Cron\CronExpression;
-// use Illuminate\Support\Carbon;
-// use Llaski\NovaScheduledJobs\Schedule\Cron;
-// use Llaski\NovaScheduledJobs\Tests\Fixtures\Jobs\UpdateOrders;
-// use Llaski\NovaScheduledJobs\Vendor\CronSchedule;
-
 class ListJobsTest extends TestCase
 {
     protected function tearDown(): void
@@ -31,11 +25,6 @@ class ListJobsTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJson([]);
-
-        // $response->assertInertia(
-        //     fn (Assert $inertia) => $inertia
-        //         ->component('Home')
-        // );
     }
 
     /** @test */
@@ -43,31 +32,6 @@ class ListJobsTest extends TestCase
     {
         Carbon::setTestNow(Carbon::parse('1/1/2022'));
 
-        // $kernel = app('Llaski\NovaScheduledJobs\Tests\Fakes\Kernel', [
-        //     'scheduledJobs' => [
-        //         [
-        //             'command' => 'cache:clear',
-        //             'schedule' => 'everyFiveMinutes',
-        //             'additionalOptions' => []
-        //         ],
-        //         [
-        //             'command' => 'store-fake-metrics',
-        //             'schedule' => 'hourly',
-        //             'additionalOptions' => [
-        //                 'withoutOverlapping',
-        //                 'onOneServer',
-        //                 'evenInMaintenanceMode'
-        //             ]
-        //         ],
-        //         [
-        //             'job' => UpdateOrders::class,
-        //             'schedule' => 'daily',
-        //             'additionalOptions' => [
-        //                 'evenInMaintenanceMode'
-        //             ]
-        //         ],
-        //     ],
-        // ]);
         app()->instance('Illuminate\Contracts\Console\Kernel', app(Kernel::class));
 
         $response = $this->getJson('nova-vendor/nova-scheduled-jobs/jobs');

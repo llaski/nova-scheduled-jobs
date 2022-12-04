@@ -11,13 +11,15 @@
 
 ## Installation
 
-You can install the package in to a Laravel app that uses [Nova](https://nova.laravel.com) via composer:
+You can install the package in to a Laravel app that uses [Nova](https://nova.laravel.com) via
+composer:
 
 ```bash
 composer require llaski/nova-scheduled-jobs
 ```
 
-To setup the tool, you must register the tool with Nova. This is typically done in the `tools` method of the `NovaServiceProvider`.
+To setup the tool, you must register the tool with Nova. This is typically done in the `tools`
+method of the `NovaServiceProvider`.
 
 ```php
 // in app/Providers/NovaServiceProvider.php
@@ -33,7 +35,8 @@ public function tools()
 }
 ```
 
-To setup the card, you must register the card with Nova. This is typically done in the `cards` method of the `NovaServiceProvider`.
+To setup the card, you must register the card with Nova. This is typically done in the `cards`
+method of the `NovaServiceProvider`.
 
 ```php
 // in app/Providers/NovaServiceProvider.php
@@ -51,8 +54,8 @@ public function cards()
 
 ### Testing
 
-``` bash
-phpunit
+```zsh
+vendor/bin/phpunit --verbose
 ```
 
 ### Changelog
@@ -65,12 +68,13 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ### Security
 
-If you discover any security related issues, please email larry.laski@gmail.com instead of using the issue tracker.
+If you discover any security related issues, please email larry.laski@gmail.com instead of using the
+issue tracker.
 
 ## Credits
 
-- [Larry Laski](https://github.com/llaski)
-- [All Contributors](../../contributors)
+-   [Larry Laski](https://github.com/llaski)
+-   [All Contributors](../../contributors)
 
 ## License
 
