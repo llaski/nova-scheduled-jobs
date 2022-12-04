@@ -6,7 +6,13 @@
 
 ## Includes both a tool and card to display your scheduled commands and jobs
 
+### Tool
+
+Please note that for the tool there are a large number of columns and depending on the type of scheduled jobs you have you may need to scroll horizontally to see all columns as well as view the actions available which include being able to dispatch certain jobs.
+
 ![Nova Scheduled Jobs Tool Screenshot](https://raw.githubusercontent.com/llaski/nova-scheduled-jobs/master/screenshots/Tool.png)
+
+### Card
 
 ![Nova Scheduled Jobs Card Screenshot](https://raw.githubusercontent.com/llaski/nova-scheduled-jobs/master/screenshots/Card.png)
 
