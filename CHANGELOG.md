@@ -2,6 +2,10 @@
 
 All notable changes to `nova-scheduled-jobs` will be documented in this file
 
+## 6.1.0 - 2022-03.08
+
+-   Package Updates
+
 ## 6.0.1 - 2022-12-05
 
 -   Readme Updates
