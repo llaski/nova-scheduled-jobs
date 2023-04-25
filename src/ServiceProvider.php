@@ -42,7 +42,7 @@ class ServiceProvider extends IlluminateServiceProvider
         Nova::router(['nova', Authenticate::class, Authorize::class], 'nova-scheduled-jobs')
             ->group(__DIR__ . '/../routes/inertia.php');
 
-        Route::middleware(['nova', Authorize::class])
+        Route::middleware(['nova', Authenticate::class, Authorize::class])
             ->prefix('nova-vendor/nova-scheduled-jobs')
             ->group(__DIR__ . '/../routes/api.php');
     }
