@@ -16,5 +16,5 @@ use Llaski\NovaScheduledJobs\Http\Controllers\DispatchController;
 |
 */
 
-Route::get('jobs', JobsController::class);
-Route::post('dispatch', DispatchController::class);
+Route::get('jobs', JobsController::class)->name('nova-scheduled-jobs.jobs');
+Route::post('dispatch', DispatchController::class)->name('nova-scheduled-jobs.dispatch');

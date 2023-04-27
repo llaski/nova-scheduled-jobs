@@ -4,10 +4,18 @@ namespace Llaski\NovaScheduledJobs\Tests;
 
 use Illuminate\Support\Carbon;
 use Llaski\NovaScheduledJobs\Tests\TestCase;
+use Laravel\Nova\Http\Middleware\Authenticate;
+use Llaski\NovaScheduledJobs\Http\Middleware\Authorize;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\Console\Kernel;
 
 class ListJobsTest extends TestCase
 {
+    /** @test */
+    public function hasCorrectMiddleware()
+    {
+        $this->assertRouteUsesMiddleware('nova-scheduled-jobs.jobs', ['nova', Authenticate::class, Authorize::class], exact: true);
+    }
+
     protected function tearDown(): void
     {
         parent::tearDown();
@@ -18,7 +26,7 @@ class ListJobsTest extends TestCase
     /** @test */
     public function itReturnsAnEmptyArrayIfThereAreNoJobsScheduled()
     {
-        $response = $this->getJson('nova-vendor/nova-scheduled-jobs/jobs');
+        $response = $this->withoutMiddleware()->getJson('nova-vendor/nova-scheduled-jobs/jobs');
 
         $response->assertStatus(200);
         $response->assertJson([]);
@@ -31,7 +39,7 @@ class ListJobsTest extends TestCase
 
         app()->instance('Illuminate\Contracts\Console\Kernel', app(Kernel::class));
 
-        $response = $this->getJson('nova-vendor/nova-scheduled-jobs/jobs');
+        $response = $this->withoutMiddleware()->getJson('nova-vendor/nova-scheduled-jobs/jobs');
 
         $response->assertStatus(200);
 

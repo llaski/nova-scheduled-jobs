@@ -21,6 +21,7 @@
         "laravel/nova": "^4.0"
     },
     "require-dev": {
+        "jasonmccreary/laravel-test-assertions": "^2.3",
         "orchestra/testbench": "^7.0"
     },
     "autoload": {

@@ -9,9 +9,12 @@ use Llaski\NovaScheduledJobs\ServiceProvider;
 use Laravel\Nova\Http\Middleware\HandleInertiaRequests;
 use Laravel\Nova\Http\Middleware\DispatchServingNovaEvent;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\NovaServiceProvider;
+use JMac\Testing\Traits\AdditionalAssertions;
 
 abstract class TestCase extends OrchestraTestCase
 {
+    use AdditionalAssertions;
+
     public function setUp(): void
     {
         parent::setUp();
