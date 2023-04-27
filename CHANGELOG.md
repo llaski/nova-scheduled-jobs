@@ -2,16 +2,28 @@
 
 All notable changes to `nova-scheduled-jobs` will be documented in this file
 
-## 6.1.0 - 2022-03.08
+## 6.1.2 - 2023.04.26
+
+-   Bugfix for missing authentication middlware for api routes
+
+## 6.1.1 - 2023.04.22
 
 -   Package Updates
 
-## 6.0.1 - 2022-12-05
+## 6.1.0 - 2023.03.08
+
+-   Package Updates
+
+## 6.0.2 - 2023.02.03
+
+-   Package Updates
+
+## 6.0.1 - 2022.12.05
 
 -   Readme Updates
 -   GitHub Action Updates
 
-## 6.0.0 - 2022-12-05
+## 6.0.0 - 2022.12.05
 
 ### Breaking Changes
 
@@ -32,12 +44,12 @@ All notable changes to `nova-scheduled-jobs` will be documented in this file
 -   Updated UI for better dark model support
 -   Updated UI to follow conventions from `php artisan schedule:list` command
 
-## 1.1.0 - 2018-08-27
+## 1.1.0 - 2018.08.27
 
 -   Added Nova Tool to display list of scheduled jobs and commands on full page
 -   Updated card to 1/2 width and reduced number of fields being displayed
 -   Updated readme with better screenshots and instructions for tool
 
-## 1.0.0 - 2018-08-25
+## 1.0.0 - 2018.08.25
 
 -   Initial Release
