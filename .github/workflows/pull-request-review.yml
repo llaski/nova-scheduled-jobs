@@ -1,0 +1,19 @@
+name: Pull Request Review
+
+on:
+  pull_request:
+
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+
+    name: Dependency Review
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: "Dependency Review"
+        uses: actions/dependency-review-action@v3 # https://github.com/marketplace/actions/dependency-review
+        with:
+          fail-on-severity: moderate
