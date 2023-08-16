@@ -2,6 +2,11 @@
 
 All notable changes to `nova-scheduled-jobs` will be documented in this file
 
+## 6.1.3 - 2023.08.15
+
+-   Package Updates
+-   Added internal dependency configuration via actions and dependabot config file
+
 ## 6.1.2 - 2023.04.26
 
 -   Bugfix for missing authentication middlware for api routes
