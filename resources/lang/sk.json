@@ -1,0 +1,14 @@
+{
+    "Are you sure you want to dispatch the Job?": "Naozaj chcete odoslať úlohu?",
+    "Command/Job": "Príkaz/Úloha",
+    "Description": "Popis",
+    "Dispatch": "Odoslať",
+    "Expression": "Výraz",
+    "Next Run At": "Ďalšie spustenie o",
+    "On One Server": "Na jednom serveri",
+    "Run In Maintenance Mode": "Spustenie v režime údržby",
+    "Schedule": "Rozvrh",
+    "Scheduled Jobs": "Plánované úlohy",
+    "Without Overlapping": "Bez prekrývania",
+    "You do not currently have any scheduled jobs.": "V súčasnosti nemáte žiadne naplánované úlohy."
+}
