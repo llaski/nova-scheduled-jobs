@@ -1,28 +1,28 @@
 {
-    "name": "fehneves01/nova-scheduled-jobs",
+    "name": "llaski/nova-scheduled-jobs",
     "description": "Nova Scheduled Jobs - Fork corrigido por FehNeves01",
     "type": "library",
     "license": "MIT",
     "require": {
-        "php": "^8.1"
+      "php": "^8.1"
     },
     "autoload": {
-        "psr-4": {
-            "Llaski\\NovaScheduledJobs\\": "src/"
-        }
+      "psr-4": {
+        "Llaski\\NovaScheduledJobs\\": "src/"
+      }
     },
     "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
+      "psr-4": {
+        "Tests\\": "tests/"
+      }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "extra": {
-        "laravel": {
-            "providers": [
-                "Llaski\\NovaScheduledJobs\\NovaScheduledJobsServiceProvider"
-            ]
-        }
+      "laravel": {
+        "providers": [
+          "Llaski\\NovaScheduledJobs\\NovaScheduledJobsServiceProvider"
+        ]
+      }
     }
-}
+  }
