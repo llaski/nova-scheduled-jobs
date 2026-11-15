@@ -2,7 +2,7 @@
 
 All notable changes to `nova-scheduled-jobs` will be documented in this file
 
-## Unreleased
+## 6.1.4 - 2026.11.15
 
 -   Fix jobs UI crash when the host app disables JsonResource wrapping (`JsonResource::withoutWrapping()`) by always returning a `{ data: [...] }` payload and defensively parsing the response in the card/tool (#49)
 -   Ensure scheduled events are loaded for HTTP requests by bootstrapping the console kernel before reading the schedule (Laravel 10+ / #83)
