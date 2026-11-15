@@ -20,7 +20,7 @@ Before capturing screenshots or recordings of Nova:
 
 ## Packaging
 
-Do not ship `AGENTS.md` to Composer consumers — it is `export-ignore`d in `.gitattributes`. Leave that line in place.
+Do not ship agent tooling to Composer consumers — `AGENTS.md` and `.agents/` are `export-ignore`d in `.gitattributes`. Leave those lines in place.
 
-- To ship it: remove `AGENTS.md export-ignore` and cut a new release.
-- To drop it: delete `AGENTS.md` and remove its `export-ignore` line.
+- To ship either: remove its `export-ignore` line and cut a new release.
+- To drop either: delete the file/dir and remove its `export-ignore` line.
