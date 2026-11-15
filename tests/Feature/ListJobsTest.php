@@ -89,7 +89,7 @@ class ListJobsTest extends TestCase
                     "evenInMaintenanceMode" => false,
                 ],
                 [
-                    "command" => "Closure at: " . str_replace('/tests/Feature', '', __DIR__) . "/tests/Fixtures/Console/Kernel.php:39",
+                    "command" => "Closure at: " . str_replace('/tests/Feature', '', __DIR__) . "/tests/Fixtures/Console/Kernel.php:38",
                     "description" => "",
                     "expression" => '0   0 * * 0',
                     "expressionHumanReadable" => "At 00:00 on Sundays.",
@@ -181,19 +181,6 @@ class ListJobsTest extends TestCase
                 ],
                 [
                     "command" => "Llaski\\NovaScheduledJobs\\Tests\\Fixtures\\Jobs\\ProcessPodcast",
-                    "description" => "process the podcast",
-                    "expression" => "*/5 * * * *",
-                    "expressionHumanReadable" => "Every consecutive 5 minutes past every hour on every day.",
-                    "timezone" => "UTC",
-                    "nextDue" => "2022-01-01 00:05:00 +00:00",
-                    "nextDueHumanReadable" => "5 minutes from now",
-                    "withoutOverlapping" => false,
-                    "onOneServer" => false,
-                    "runInBackground" => false,
-                    "evenInMaintenanceMode" => false
-                ],
-                [
-                    "command" => "Llaski\\NovaScheduledJobs\\Tests\\Fixtures\\Jobs\\ProcessPodcastWithDependencies",
                     "description" => "process the podcast",
                     "expression" => "*/5 * * * *",
                     "expressionHumanReadable" => "Every consecutive 5 minutes past every hour on every day.",

@@ -146,15 +146,11 @@ export default {
 
     methods: {
         canDispatchCommand(command) {
-            if (!command) {
-                return false
+            if (command) {
+                return command.includes('\Jobs')
             }
 
-            // Scheduled jobs are listed by FQCN; artisan/shell commands are not dispatchable here.
-            return !command.startsWith('php artisan') &&
-                !command.startsWith('Closure at:') &&
-                !command.includes(' ') &&
-                command.includes('\\')
+            return false
         },
 
         openConfirmationModal(job) {

@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\Jobs\ProcessPodcast;
-use Llaski\NovaScheduledJobs\Tests\Fixtures\Jobs\ProcessPodcastWithDependencies;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\Console\Commands\LogUsers;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\Console\Tasks\DeleteRecentUsers;
 
@@ -50,7 +49,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('inspire')->hourly()->runInBackground();
 
         $schedule->job(new ProcessPodcast)->everyFiveMinutes();
-        $schedule->job(ProcessPodcastWithDependencies::class)->everyFiveMinutes();
 
         $schedule->exec('node /home/forge/script.js')->monthly();
     }

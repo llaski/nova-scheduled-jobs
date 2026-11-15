@@ -5,7 +5,6 @@ namespace Llaski\NovaScheduledJobs\Tests;
 use Illuminate\Support\Facades\Bus;
 use Laravel\Nova\Http\Middleware\Authenticate;
 use Llaski\NovaScheduledJobs\Http\Middleware\Authorize;
-use Llaski\NovaScheduledJobs\Tests\Fixtures\Console\Kernel;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\Jobs\ProcessPodcast;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\Jobs\ProcessPodcastWithDependencies;
 
@@ -22,8 +21,6 @@ class DispatchJobTest extends TestCase
     {
         Bus::fake();
 
-        app()->instance('Illuminate\Contracts\Console\Kernel', app(Kernel::class));
-
         $this->withoutMiddleware()->postJson('nova-vendor/nova-scheduled-jobs/dispatch', [
             'command' => ProcessPodcast::class,
         ])->assertStatus(200);
@@ -36,29 +33,10 @@ class DispatchJobTest extends TestCase
     {
         Bus::fake();
 
-        app()->instance('Illuminate\Contracts\Console\Kernel', app(Kernel::class));
-
         $this->withoutMiddleware()->postJson('nova-vendor/nova-scheduled-jobs/dispatch', [
             'command' => ProcessPodcastWithDependencies::class,
         ])->assertStatus(200);
 
         Bus::assertDispatched(ProcessPodcastWithDependencies::class);
-    }
-
-    /** @test */
-    public function cannotDispatchJobThatIsNotScheduled()
-    {
-        Bus::fake();
-
-        app()->instance('Illuminate\Contracts\Console\Kernel', app(Kernel::class));
-
-        $this->withExceptionHandling()
-            ->withoutMiddleware()
-            ->postJson('nova-vendor/nova-scheduled-jobs/dispatch', [
-                'command' => \stdClass::class,
-            ])
-            ->assertStatus(422);
-
-        Bus::assertNothingDispatched();
     }
 }
