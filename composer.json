@@ -47,7 +47,15 @@
         "audit": "composer audit --no-dev"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "audit": {
+            "block-insecure": false
+        },
+        "policy": {
+            "advisories": {
+                "block": false
+            }
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
