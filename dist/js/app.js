@@ -29,10 +29,20 @@ __webpack_require__.r(__webpack_exports__);
       this.loading = true;
       Nova.request().get('/nova-vendor/nova-scheduled-jobs/jobs').then(function (response) {
         _this.loading = false;
-        _this.jobs = response.data.data;
+        _this.jobs = _this.jobsFromResponse(response.data);
         setTimeout(_this.fetchJobs, 60 * 1000);
       });
-    }
+    },
+    jobsFromResponse: function jobsFromResponse(payload) {
+      if (Array.isArray(payload)) {
+        return payload;
+      }
+      if (payload && Array.isArray(payload.data)) {
+        return payload.data;
+      }
+      return [];
+    },
+    
   }
 });
 
@@ -120,15 +130,24 @@ __webpack_require__.r(__webpack_exports__);
       this.loading = true;
       Nova.request().get('/nova-vendor/nova-scheduled-jobs/jobs').then(function (response) {
         _this.loading = false;
-        _this.jobs = response.data.data;
+        _this.jobs = _this.jobsFromResponse(response.data);
         setTimeout(_this.fetchJobs, 60 * 1000);
       });
     },
-    canDispatchCommand: function canDispatchCommand(command) {
-      if (command) {
-        return command.includes('\Jobs');
+    jobsFromResponse: function jobsFromResponse(payload) {
+      if (Array.isArray(payload)) {
+        return payload;
       }
-      return false;
+      if (payload && Array.isArray(payload.data)) {
+        return payload.data;
+      }
+      return [];
+    },
+    canDispatchCommand: function canDispatchCommand(command) {
+      if (!command) {
+        return false;
+      }
+      return !command.startsWith('php artisan') && !command.startsWith('Closure at:') && !command.includes(' ') && command.includes('\\');
     },
     openConfirmationModal: function openConfirmationModal(job) {
       this.dispatchJob = job;

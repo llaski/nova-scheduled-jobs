@@ -72,10 +72,22 @@ export default {
                 .get('/nova-vendor/nova-scheduled-jobs/jobs')
                 .then((response) => {
                     this.loading = false
-                    this.jobs = response.data.data
+                    this.jobs = this.jobsFromResponse(response.data)
 
                     setTimeout(this.fetchJobs, 60 * 1000)
                 })
+        },
+
+        jobsFromResponse(payload) {
+            if (Array.isArray(payload)) {
+                return payload
+            }
+
+            if (payload && Array.isArray(payload.data)) {
+                return payload.data
+            }
+
+            return []
         },
     },
 }

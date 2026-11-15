@@ -148,18 +148,34 @@ export default {
                 .get('/nova-vendor/nova-scheduled-jobs/jobs')
                 .then((response) => {
                     this.loading = false
-                    this.jobs = response.data.data
+                    this.jobs = this.jobsFromResponse(response.data)
 
                     setTimeout(this.fetchJobs, 60 * 1000)
                 })
         },
 
-        canDispatchCommand(command) {
-            if (command) {
-                return command.includes('\Jobs')
+        jobsFromResponse(payload) {
+            if (Array.isArray(payload)) {
+                return payload
             }
 
-            return false
+            if (payload && Array.isArray(payload.data)) {
+                return payload.data
+            }
+
+            return []
+        },
+
+        canDispatchCommand(command) {
+            if (!command) {
+                return false
+            }
+
+            // Scheduled jobs are listed by FQCN; artisan/shell commands are not dispatchable here.
+            return !command.startsWith('php artisan') &&
+                !command.startsWith('Closure at:') &&
+                !command.includes(' ') &&
+                command.includes('\\')
         },
 
         openConfirmationModal(job) {

@@ -2,11 +2,12 @@
 
 namespace Llaski\NovaScheduledJobs\Tests;
 
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
-use Llaski\NovaScheduledJobs\Tests\TestCase;
 use Laravel\Nova\Http\Middleware\Authenticate;
 use Llaski\NovaScheduledJobs\Http\Middleware\Authorize;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\Console\Kernel;
+use Llaski\NovaScheduledJobs\Tests\TestCase;
 
 class ListJobsTest extends TestCase
 {
@@ -29,7 +30,23 @@ class ListJobsTest extends TestCase
         $response = $this->withoutMiddleware()->getJson('nova-vendor/nova-scheduled-jobs/jobs');
 
         $response->assertStatus(200);
-        $response->assertJson([]);
+        $response->assertExactJson(['data' => []]);
+    }
+
+    /** @test */
+    public function itKeepsDataWrappingWhenHostDisablesJsonResourceWrapping()
+    {
+        JsonResource::withoutWrapping();
+
+        try {
+            $response = $this->withoutMiddleware()->getJson('nova-vendor/nova-scheduled-jobs/jobs');
+
+            $response->assertStatus(200);
+            $response->assertExactJson(['data' => []]);
+            $this->assertArrayHasKey('data', $response->json());
+        } finally {
+            JsonResource::wrap('data');
+        }
     }
 
     /** @test */
@@ -164,6 +181,19 @@ class ListJobsTest extends TestCase
                 ],
                 [
                     "command" => "Llaski\\NovaScheduledJobs\\Tests\\Fixtures\\Jobs\\ProcessPodcast",
+                    "description" => "process the podcast",
+                    "expression" => "*/5 * * * *",
+                    "expressionHumanReadable" => "Every consecutive 5 minutes past every hour on every day.",
+                    "timezone" => "UTC",
+                    "nextDue" => "2022-01-01 00:05:00 +00:00",
+                    "nextDueHumanReadable" => "5 minutes from now",
+                    "withoutOverlapping" => false,
+                    "onOneServer" => false,
+                    "runInBackground" => false,
+                    "evenInMaintenanceMode" => false
+                ],
+                [
+                    "command" => "Llaski\\NovaScheduledJobs\\Tests\\Fixtures\\Jobs\\ProcessPodcastWithDependencies",
                     "description" => "process the podcast",
                     "expression" => "*/5 * * * *",
                     "expressionHumanReadable" => "Every consecutive 5 minutes past every hour on every day.",
