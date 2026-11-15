@@ -52,9 +52,12 @@ class DispatchJobTest extends TestCase
 
         app()->instance('Illuminate\Contracts\Console\Kernel', app(Kernel::class));
 
-        $this->withoutMiddleware()->postJson('nova-vendor/nova-scheduled-jobs/dispatch', [
-            'command' => \stdClass::class,
-        ])->assertStatus(422);
+        $this->withExceptionHandling()
+            ->withoutMiddleware()
+            ->postJson('nova-vendor/nova-scheduled-jobs/dispatch', [
+                'command' => \stdClass::class,
+            ])
+            ->assertStatus(422);
 
         Bus::assertNothingDispatched();
     }

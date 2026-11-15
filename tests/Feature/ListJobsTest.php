@@ -89,7 +89,7 @@ class ListJobsTest extends TestCase
                     "evenInMaintenanceMode" => false,
                 ],
                 [
-                    "command" => "Closure at: " . str_replace('/tests/Feature', '', __DIR__) . "/tests/Fixtures/Console/Kernel.php:38",
+                    "command" => "Closure at: " . str_replace('/tests/Feature', '', __DIR__) . "/tests/Fixtures/Console/Kernel.php:39",
                     "description" => "",
                     "expression" => '0   0 * * 0',
                     "expressionHumanReadable" => "At 00:00 on Sundays.",
