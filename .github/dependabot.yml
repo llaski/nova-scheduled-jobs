@@ -1,22 +1,44 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
-
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 version: 2
 
-updates:
-  - package-ecosystem: "composer" # See documentation for possible values
-    directory: "/" # Location of package manifests
-    schedule:
-      interval: "weekly"
+registries:
+  nova:
+    type: composer-repository
+    url: https://nova.laravel.com
+    username: ${{secrets.NOVA_USERNAME}}
+    password: ${{secrets.NOVA_LICENSE_KEY}}
 
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/" # Location of package manifests
+updates:
+  - package-ecosystem: "composer"
+    directory: "/"
+    registries: "*"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 5
+    groups:
+      composer:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 5
+    groups:
+      npm:
+        patterns:
+          - "*"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
+    cooldown:
+      default-days: 5
+    groups:
+      github-actions:
+        patterns:
+          - "*"
