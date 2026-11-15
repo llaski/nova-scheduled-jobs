@@ -50,7 +50,11 @@
 </template>
 
 <script>
+import FetchesJobs from '../mixins/FetchesJobs'
+
 export default {
+    mixins: [FetchesJobs],
+
     props: ['card'],
 
     data: () => {
@@ -62,21 +66,6 @@ export default {
 
     mounted() {
         this.fetchJobs()
-    },
-
-    methods: {
-        fetchJobs() {
-            this.loading = true
-
-            Nova.request()
-                .get('/nova-vendor/nova-scheduled-jobs/jobs')
-                .then((response) => {
-                    this.loading = false
-                    this.jobs = response.data.data
-
-                    setTimeout(this.fetchJobs, 60 * 1000)
-                })
-        },
     },
 }
 </script>

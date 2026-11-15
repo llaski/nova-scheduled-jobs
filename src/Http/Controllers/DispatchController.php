@@ -3,20 +3,13 @@
 namespace Llaski\NovaScheduledJobs\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Console\Scheduling\Schedule;
-use Llaski\NovaScheduledJobs\Schedule\EventFactory;
-use Llaski\NovaScheduledJobs\Http\Resources\JobResource;
-use Llaski\NovaScheduledJobs\Http\Resources\JobCollection;
 
 class DispatchController
 {
     /**
-     * Dispatch Job
+     * Dispatch a job by class name.
      *
-     * @param  \Illuminate\Http\Request   $request
+     * @param  \Illuminate\Http\Request  $request
      * @return void
      *
      * @throws \Exception
@@ -30,11 +23,9 @@ class DispatchController
                 }
 
                 $fail($value . ' is not a valid job.');
-            },]
+            }],
         ]);
 
-        $command = resolve($data['command']);
-
-        dispatch($command);
+        dispatch(resolve($data['command']));
     }
 }
