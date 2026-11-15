@@ -63,18 +63,4 @@ If the project maintainer has any additional requirements, you will find them li
     [squash them](http://www.git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages)
     before submitting.
 
-## AGENTS.md
-
-`AGENTS.md` is for contributors and Cursor agents working in this repository. It is **not** shipped to Composer consumers.
-
-It is excluded from Packagist / `composer archive` via `.gitattributes`:
-
-```gitattributes
-AGENTS.md export-ignore
-```
-
-- Keep that `export-ignore` line so installs do not place the file under `vendor/`.
-- To ship it in the package, remove the line and cut a new release.
-- To drop agent instructions entirely, delete `AGENTS.md` and remove its `export-ignore` line.
-
 **Happy coding**!
