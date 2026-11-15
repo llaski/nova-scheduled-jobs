@@ -2,6 +2,20 @@
 
 All notable changes to `nova-scheduled-jobs` will be documented in this file
 
+## 7.0.0 - 2026.11.15
+
+### Breaking Changes
+
+-   Require PHP 8.2+
+-   Require Laravel Nova 5 (`laravel/nova` ^5.0); Nova 4 is no longer supported
+-   Test against Laravel 10.34+ / 11 / 12 via Orchestra Testbench 8–10
+
+### Other Changes
+
+-   CI matrix covers PHP 8.2–8.4 across supported Laravel versions
+-   Prefer Laravel's `Event::normalizeCommand()` when available for command display
+-   PHPUnit config updated for PHPUnit 10+
+
 ## 6.1.4 - 2026.11.15
 
 -   Fix jobs UI crash when the host app disables JsonResource wrapping (`JsonResource::withoutWrapping()`) by always returning a `{ data: [...] }` payload and defensively parsing the response in the card/tool (#49)

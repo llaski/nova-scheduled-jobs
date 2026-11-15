@@ -4,7 +4,7 @@ Laravel Nova package: Tool + Card for scheduled commands/jobs. Nova Composer cre
 
 ## Commands
 
-- Tests: `vendor/bin/phpunit --verbose`
+- Tests: `vendor/bin/phpunit`
 - Frontend: `npm run development` / `npm run production` — commit updated `dist/` when releasing asset changes
 
 ## Conventions

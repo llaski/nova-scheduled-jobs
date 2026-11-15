@@ -16,6 +16,12 @@ Please note that for the tool there are a large number of columns and depending 
 
 ![Nova Scheduled Jobs Card Screenshot](https://raw.githubusercontent.com/llaski/nova-scheduled-jobs/master/screenshots/Card.png)
 
+## Requirements
+
+-   PHP 8.2+
+-   Laravel Nova 5
+-   Laravel 10.34+ / 11 / 12 (as required by your Nova 5 app)
+
 ## Installation
 
 You can install the package in to a Laravel app that uses [Nova](https://nova.laravel.com) via
@@ -24,6 +30,8 @@ composer:
 ```bash
 composer require llaski/nova-scheduled-jobs
 ```
+
+For Nova 4 apps, use the 6.x line of this package.
 
 To setup the tool, you must register the tool with Nova. This is typically done in the `tools`
 method of the `NovaServiceProvider`.
@@ -71,7 +79,7 @@ public function cards()
 ### Testing
 
 ```zsh
-vendor/bin/phpunit --verbose
+vendor/bin/phpunit
 ```
 
 ### Changelog

@@ -17,12 +17,12 @@
         }
     ],
     "require": {
-        "php": "^8.0",
-        "laravel/nova": "^4.0"
+        "php": "^8.2",
+        "laravel/nova": "^5.0"
     },
     "require-dev": {
-        "jasonmccreary/laravel-test-assertions": "^2.3",
-        "orchestra/testbench": "^7.0",
+        "jasonmccreary/laravel-test-assertions": "^2.5",
+        "orchestra/testbench": "^8.31|^9.0|^10.0",
         "phpstan/phpstan": "^2.0"
     },
     "autoload": {
