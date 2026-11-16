@@ -7,6 +7,14 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class JobCollection extends ResourceCollection
 {
     /**
+     * Force the `data` wrapper even when the host app calls
+     * JsonResource::withoutWrapping(). The Nova UI expects this shape.
+     *
+     * @var string
+     */
+    public static $wrap = 'data';
+
+    /**
      * Transform the resource collection into an array.
      *
      * @param  \Illuminate\Http\Request  $request

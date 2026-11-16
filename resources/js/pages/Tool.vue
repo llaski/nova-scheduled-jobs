@@ -128,7 +128,11 @@
 </template>
 
 <script>
+import FetchesJobs from '../mixins/FetchesJobs'
+
 export default {
+    mixins: [FetchesJobs],
+
     data: () => ({
         jobs: [],
         loading: true,
@@ -141,19 +145,6 @@ export default {
     },
 
     methods: {
-        fetchJobs() {
-            this.loading = true
-
-            Nova.request()
-                .get('/nova-vendor/nova-scheduled-jobs/jobs')
-                .then((response) => {
-                    this.loading = false
-                    this.jobs = response.data.data
-
-                    setTimeout(this.fetchJobs, 60 * 1000)
-                })
-        },
-
         canDispatchCommand(command) {
             if (command) {
                 return command.includes('\Jobs')
