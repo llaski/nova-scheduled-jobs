@@ -11,3 +11,4 @@
 AGENTS.md export-ignore
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore
+.cursor export-ignore
