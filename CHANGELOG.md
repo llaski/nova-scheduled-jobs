@@ -8,13 +8,14 @@ All notable changes to `nova-scheduled-jobs` will be documented in this file
 
 -   Require PHP 8.2+
 -   Require Laravel Nova 5 (`laravel/nova` ^5.0); Nova 4 is no longer supported
--   Require Laravel 12+ (Laravel 10 and 11 are end-of-life; Laravel no longer ships LTS majors)
+-   Require Laravel 12+ (`illuminate/support` ^12.1.1|^13.0); Laravel 10 / 11 are end-of-life and no longer supported
 -   Test against Laravel 12 / 13 via Orchestra Testbench 10–11
 
 ### Other Changes
 
--   CI matrix covers PHP 8.2–8.4 across Laravel 12–13 (PHP 8.2 × Laravel 13 excluded)
--   Prefer Laravel's `Event::normalizeCommand()` when available for command display
+-   CI matrix covers PHP 8.2–8.4 × Laravel 12 / 13 (PHP 8.2 × Laravel 13 excluded)
+-   Use Laravel's `Event::normalizeCommand()` for scheduled command display
+-   Align tool Authorize middleware with Nova 5 stub (404 when tool missing)
 -   PHPUnit config updated for PHPUnit 10+
 
 ## 6.1.4 - 2026.11.15
