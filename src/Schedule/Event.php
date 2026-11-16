@@ -11,7 +11,14 @@ use Illuminate\Support\Collection;
 use Illuminate\Console\Application;
 use Illuminate\Contracts\Console\Kernel;
 
-
+/**
+ * @property string $expression
+ * @property string|null $timezone
+ * @property bool $withoutOverlapping
+ * @property bool $onOneServer
+ * @property bool $runInBackground
+ * @property bool $evenInMaintenanceMode
+ */
 abstract class Event
 {
     protected $event;

@@ -4,7 +4,12 @@ namespace Llaski\NovaScheduledJobs\Http\Resources;
 
 use Illuminate\Support\Collection;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Llaski\NovaScheduledJobs\Schedule\Event;
 
+/**
+ * @mixin Event
+ * @property Event $resource
+ */
 class JobResource extends JsonResource
 {
     protected Collection $expressionSpacing;

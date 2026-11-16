@@ -22,7 +22,8 @@
     },
     "require-dev": {
         "jasonmccreary/laravel-test-assertions": "^2.3",
-        "orchestra/testbench": "^7.0"
+        "orchestra/testbench": "^7.0",
+        "phpstan/phpstan": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -40,6 +41,10 @@
                 "Llaski\\NovaScheduledJobs\\ServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "phpstan": "phpstan analyse --memory-limit=512M",
+        "audit": "composer audit --no-dev"
     },
     "config": {
         "sort-packages": true
