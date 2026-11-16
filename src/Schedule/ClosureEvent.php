@@ -32,8 +32,8 @@ class ClosureEvent extends Event
      */
     private function getClosureLocation(CallbackEvent $event)
     {
-        $callback = tap((new ReflectionClass($event))->getProperty('callback'))
-            ->setAccessible(true)
+        $callback = (new ReflectionClass($event))
+            ->getProperty('callback')
             ->getValue($event);
 
         if ($callback instanceof Closure) {

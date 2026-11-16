@@ -7,16 +7,17 @@ use Laravel\Nova\Http\Middleware\Authenticate;
 use Llaski\NovaScheduledJobs\Http\Middleware\Authorize;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\Jobs\ProcessPodcast;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\Jobs\ProcessPodcastWithDependencies;
+use PHPUnit\Framework\Attributes\Test;
 
 class DispatchJobTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function hasCorrectMiddleware()
     {
         $this->assertRouteUsesMiddleware('nova-scheduled-jobs.dispatch', ['nova', Authenticate::class, Authorize::class], exact: true);
     }
 
-    /** @test */
+    #[Test]
     public function canDispatchJob()
     {
         Bus::fake();
@@ -28,7 +29,7 @@ class DispatchJobTest extends TestCase
         Bus::assertDispatched(ProcessPodcast::class);
     }
 
-    /** @test */
+    #[Test]
     public function canDispatchJobWithDependencies()
     {
         Bus::fake();

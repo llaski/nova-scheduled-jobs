@@ -1,0 +1,8 @@
+{
+  "name": "verify-nova-scheduled-jobs-helpers",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "puppeteer-core": "^25.17.0"
+  }
+}

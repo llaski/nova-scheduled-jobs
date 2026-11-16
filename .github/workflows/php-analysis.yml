@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2.40.0
@@ -23,19 +23,13 @@ jobs:
           coverage: none
 
       - name: Setup Laravel Nova Credentials
-        run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_LICENSE_KEY}
+        run: composer config http-basic.nova.laravel.com "${NOVA_USERNAME}" "${NOVA_LICENSE_KEY}"
         env:
           NOVA_USERNAME: ${{ secrets.NOVA_USERNAME }}
           NOVA_LICENSE_KEY: ${{ secrets.NOVA_LICENSE_KEY }}
 
-      - name: Cache composer dependencies
-        uses: actions/cache@v4
-        with:
-          path: vendor
-          key: composer-phpstan-${{ hashFiles('composer.lock') }}
-
       - name: Install composer dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --prefer-dist --no-progress
+        run: composer update --prefer-dist --no-interaction --no-progress
 
       - name: Run PHPStan
         run: composer phpstan
@@ -46,7 +40,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2.40.0
@@ -55,6 +49,14 @@ jobs:
           tools: composer:v2
           coverage: none
 
+      - name: Setup Laravel Nova Credentials
+        run: composer config http-basic.nova.laravel.com "${NOVA_USERNAME}" "${NOVA_LICENSE_KEY}"
+        env:
+          NOVA_USERNAME: ${{ secrets.NOVA_USERNAME }}
+          NOVA_LICENSE_KEY: ${{ secrets.NOVA_LICENSE_KEY }}
+
+      - name: Resolve production dependencies
+        run: composer update --prefer-dist --no-interaction --no-progress --no-dev
+
       - name: Audit production dependencies
-        # Uses the lockfile; no Nova install required for advisory lookup.
-        run: composer audit --locked --no-dev
+        run: composer audit --no-dev
