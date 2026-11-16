@@ -32,8 +32,7 @@ class JobCollection extends ResourceCollection
     /**
      * Gets the spacing to be used on each event row.
      *
-     * @param  \Illuminate\Support\Collection  $events
-     * @return array<int, int>
+     * @return \Illuminate\Support\Collection<int, int>
      */
     private function getExpressionSpacing()
     {

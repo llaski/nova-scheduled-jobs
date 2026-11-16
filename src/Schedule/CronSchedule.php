@@ -182,6 +182,7 @@ class CronSchedule
             $segmentNumber2 = '';
             $segmentIncrement = '';
             $intIncrement = 1;
+            $intNumber2 = null;
             if ($hasInterval) {
                 $segmentNumber1 = substr($segment, 0, $posIncrement);
                 $segmentIncrement = substr($segment, $posIncrement + 1);

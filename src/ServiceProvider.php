@@ -2,6 +2,7 @@
 
 namespace Llaski\NovaScheduledJobs;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 use Laravel\Nova\Events\ServingNova;
@@ -35,7 +36,8 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     protected function routes()
     {
-        if ($this->app->routesAreCached()) {
+        $app = $this->app;
+        if ($app instanceof Application && $app->routesAreCached()) {
             return;
         }
 
