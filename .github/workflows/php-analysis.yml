@@ -3,6 +3,9 @@ name: PHP Analysis
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   phpstan:
     runs-on: ubuntu-latest
