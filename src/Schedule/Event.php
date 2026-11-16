@@ -35,11 +35,40 @@ abstract class Event
     public function description()
     {
         try {
-            $reflection = new \ReflectionClass($this->className());
-            return (string) Arr::get($reflection->getDefaultProperties(), 'description', '');
+            $className = $this->className();
+
+            if ($className === '' || $className === null) {
+                return '';
+            }
+
+            $reflection = new \ReflectionClass($className);
+            $description = (string) Arr::get($reflection->getDefaultProperties(), 'description', '');
+
+            if ($description !== '') {
+                return $description;
+            }
+
+            return $this->descriptionFromAsCommandAttribute($reflection);
         } catch (\ReflectionException $exception) {
             return '';
         }
+    }
+
+    /**
+     * Resolve a description from the Symfony AsCommand attribute when present.
+     *
+     * @param  \ReflectionClass  $reflection
+     * @return string
+     */
+    protected function descriptionFromAsCommandAttribute(\ReflectionClass $reflection)
+    {
+        $attributes = $reflection->getAttributes(\Symfony\Component\Console\Attribute\AsCommand::class);
+
+        if ($attributes === []) {
+            return '';
+        }
+
+        return (string) ($attributes[0]->newInstance()->description ?? '');
     }
 
     public function formattedExpression(Collection $expressionSpacing)
