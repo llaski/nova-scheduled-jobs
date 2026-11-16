@@ -20,7 +20,7 @@ Please note that for the tool there are a large number of columns and depending 
 
 -   PHP 8.2+
 -   Laravel Nova 5
--   Laravel 10.34+ / 11 / 12 (as required by your Nova 5 app)
+-   Laravel 12 / 13 (oldest currently security-supported Laravel that Nova 5 supports)
 
 ## Installation
 
