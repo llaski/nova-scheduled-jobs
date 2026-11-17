@@ -15,13 +15,38 @@ class CommandEvent extends Event
 
     public function className()
     {
-        [$command] = Parser::parse(str_replace('php artisan ', '', $this->command()));
-        $commands = app(Kernel::class)->all();
+        $command = $this->artisanCommand();
 
-        if (! isset($commands[$command])) {
+        if ($command === null) {
             return '';
         }
 
-        return get_class($commands[$command]);
+        return get_class($command);
+    }
+
+    public function description()
+    {
+        if (! empty($this->event->description)) {
+            return $this->event->description;
+        }
+
+        $command = $this->artisanCommand();
+
+        if ($command === null) {
+            return parent::description();
+        }
+
+        return (string) $command->getDescription();
+    }
+
+    /**
+     * @return \Symfony\Component\Console\Command\Command|null
+     */
+    protected function artisanCommand()
+    {
+        [$command] = Parser::parse(str_replace('php artisan ', '', $this->command()));
+        $commands = app(Kernel::class)->all();
+
+        return $commands[$command] ?? null;
     }
 }
