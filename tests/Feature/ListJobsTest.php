@@ -207,6 +207,20 @@ class ListJobsTest extends TestCase
                     "evenInMaintenanceMode" => false
                 ],
                 [
+                    "command" => "php artisan app:log-users",
+                    "description" => "Log Users",
+                    "expression" => "*/5 * * * *",
+                    "expressionHumanReadable" => "Every consecutive 5 minutes past every hour on every day.",
+                    "timezone" => "UTC",
+                    "nextDue" => "2022-01-01 00:05:00 +00:00",
+                    "nextDueHumanReadable" => "5 minutes from now",
+                    "withoutOverlapping" => true,
+                    "onOneServer" => false,
+                    "runInBackground" => false,
+                    "evenInMaintenanceMode" => false,
+                    "mutexName" => "custom-log-users-mutex",
+                ],
+                [
                     "command" => "Llaski\\NovaScheduledJobs\\Tests\\Fixtures\\Jobs\\ProcessPodcast",
                     "description" => "process the podcast",
                     "expression" => "*/5 * * * *",
@@ -267,5 +281,13 @@ class ListJobsTest extends TestCase
             //         'evenInMaintenanceMode' => true,
             //     ],
         ]);
+
+        $jobs = collect($response->json('data'));
+
+        $this->assertTrue($jobs->every(fn ($job) => is_string($job['mutexName'] ?? null) && $job['mutexName'] !== ''));
+        $this->assertTrue($jobs->contains(fn ($job) => ($job['mutexName'] ?? null) === 'custom-log-users-mutex'));
+        $this->assertTrue(
+            $jobs->contains(fn ($job) => str_starts_with($job['mutexName'] ?? '', 'framework'.DIRECTORY_SEPARATOR.'schedule-'))
+        );
     }
 }

@@ -65,6 +65,11 @@
                         <th
                             class="text-left px-2 whitespace-nowrap uppercase text-gray-500 text-xxs tracking-wide py-2"
                         >
+                            <span>{{ __('Mutex Name') }}</span>
+                        </th>
+                        <th
+                            class="text-left px-2 whitespace-nowrap uppercase text-gray-500 text-xxs tracking-wide py-2"
+                        >
                             <span>{{ __('Dispatch') }}</span>
                         </th>
                     </tr>
@@ -101,6 +106,11 @@
                         </td>
                         <td class="px-2 py-2 dark:bg-gray-800">
                             {{ job.evenInMaintenanceMode ? 'Yes' : 'No' }}
+                        </td>
+                        <td class="px-2 py-2 whitespace-nowrap dark:bg-gray-800">
+                            <span class="font-mono text-xs" :title="job.mutexName">{{
+                                job.mutexName
+                            }}</span>
                         </td>
                         <td class="px-2 py-2 whitespace-nowrap dark:bg-gray-800">
                             <button
