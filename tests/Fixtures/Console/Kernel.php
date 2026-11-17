@@ -7,12 +7,14 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\Jobs\ProcessPodcast;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\Console\Commands\LogUsers;
+use Llaski\NovaScheduledJobs\Tests\Fixtures\Console\Commands\SendInvoices;
 use Llaski\NovaScheduledJobs\Tests\Fixtures\Console\Tasks\DeleteRecentUsers;
 
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
         LogUsers::class,
+        SendInvoices::class,
     ];
 
     /**
@@ -34,6 +36,9 @@ class Kernel extends ConsoleKernel
          */
         $schedule->command(LogUsers::class)->daily();
         $schedule->command('app:log-users')->daily();
+
+        $schedule->command(SendInvoices::class)->daily();
+        $schedule->command('app:send-invoices')->daily();
 
         $schedule->call(function () {
             DB::table('recent_users')->delete();

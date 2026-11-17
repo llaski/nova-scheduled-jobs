@@ -2,6 +2,10 @@
 
 All notable changes to `nova-scheduled-jobs` will be documented in this file
 
+## Unreleased
+
+-   Resolve scheduled command descriptions from the Symfony `AsCommand` attribute when `$description` is not set on the command class (#46)
+
 ## 7.0.0 - 2026.11.15
 
 ### Breaking Changes

@@ -7,6 +7,7 @@
 *.php diff=php
 
 /.github export-ignore
+.github/verification export-ignore
 .agents export-ignore
 AGENTS.md export-ignore
 CHANGELOG.md export-ignore
