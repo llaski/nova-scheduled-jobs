@@ -51,6 +51,9 @@ public function tools()
     return [
         // ...
         new NovaScheduledJobsTool,
+        // Optionally restrict columns:
+        // (new NovaScheduledJobsTool)->except(['timezone', 'runInBackground']),
+        // (new NovaScheduledJobsTool)->only(['command', 'schedule', 'expression', 'nextDue', 'dispatch']),
     ];
 }
 ```
@@ -72,9 +75,43 @@ public function cards()
     return [
         // ...
         new NovaScheduledJobsCard,
+        // Optionally restrict columns:
+        // (new NovaScheduledJobsCard)->only(['command', 'nextDue']),
     ];
 }
 ```
+
+## Configuring Columns
+
+Both the tool and card support include (`only`) and exclude (`except`) column lists. Configure them
+on the instance (takes precedence) or via a publishable config file.
+
+**Tool columns:** `command`, `schedule`, `expression`, `timezone`, `nextDue`,
+`withoutOverlapping`, `onOneServer`, `runInBackground`, `evenInMaintenanceMode`, `dispatch`
+
+**Card columns:** `command`, `expression`, `nextDue`
+
+```bash
+php artisan vendor:publish --tag=nova-scheduled-jobs-config
+```
+
+```php
+// config/nova-scheduled-jobs.php
+return [
+    'tool' => [
+        // 'only' => ['command', 'schedule', 'expression', 'nextDue', 'dispatch'],
+        // 'except' => ['timezone', 'runInBackground'],
+    ],
+    'card' => [
+        // 'only' => ['command', 'nextDue'],
+        // 'except' => ['expression'],
+    ],
+];
+```
+
+Use either `only` or `except` for a given surface — not both. Instance methods clear the other
+option when called. Unknown column keys are ignored. Defaults match the previous UI when nothing is
+configured.
 
 ### Testing
 

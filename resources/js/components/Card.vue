@@ -12,16 +12,19 @@
             <thead>
                 <tr>
                     <th
+                        v-if="showsColumn('command')"
                         class="w-3/5 text-left px-2 uppercase text-gray-500 text-xxs tracking-wide py-2"
                     >
                         <span>{{ __('Name') }}</span>
                     </th>
                     <th
+                        v-if="showsColumn('expression')"
                         class="w-1/5 text-left px-2 uppercase text-gray-500 text-xxs tracking-wide py-2"
                     >
                         <span>{{ __('Expression') }}</span>
                     </th>
                     <th
+                        v-if="showsColumn('nextDue')"
                         class="w-1/5 text-left px-2 uppercase text-gray-500 text-xxs tracking-wide py-2"
                     >
                         <span>{{ __('Next Due') }}</span>
@@ -29,16 +32,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(job, index) in jobs" :job="job">
-                    <td class="w-3/5 px-2 py-2 whitespace-nowrap dark:bg-gray-800">
+                <tr v-for="(job, index) in jobs" :key="index" :job="job">
+                    <td
+                        v-if="showsColumn('command')"
+                        class="w-3/5 px-2 py-2 whitespace-nowrap dark:bg-gray-800"
+                    >
                         <p class="text-sm font-bold truncate">
                             {{ job.command }}
                         </p>
                     </td>
-                    <td class="w-1/5 text-sm px-2 py-2 dark:bg-gray-800">
+                    <td v-if="showsColumn('expression')" class="w-1/5 text-sm px-2 py-2 dark:bg-gray-800">
                         {{ job.expression }}
                     </td>
-                    <td class="w-1/5 px-2 py-2 dark:bg-gray-800">
+                    <td v-if="showsColumn('nextDue')" class="w-1/5 px-2 py-2 dark:bg-gray-800">
                         <p class="text-sm">
                             {{ job.nextDueHumanReadable }}
                         </p>
@@ -52,6 +58,8 @@
 <script>
 import FetchesJobs from '../mixins/FetchesJobs'
 
+const DEFAULT_COLUMNS = ['command', 'expression', 'nextDue']
+
 export default {
     mixins: [FetchesJobs],
 
@@ -64,8 +72,24 @@ export default {
         }
     },
 
+    computed: {
+        columns() {
+            if (Array.isArray(this.card?.columns) && this.card.columns.length) {
+                return this.card.columns
+            }
+
+            return DEFAULT_COLUMNS
+        },
+    },
+
     mounted() {
         this.fetchJobs()
+    },
+
+    methods: {
+        showsColumn(column) {
+            return this.columns.includes(column)
+        },
     },
 }
 </script>

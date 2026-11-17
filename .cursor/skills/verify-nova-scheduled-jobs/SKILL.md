@@ -67,6 +67,8 @@ Stable handles (prefer these over coordinates):
 | URL `/nova/nova-scheduled-jobs` | Tool page |
 | Sidebar text `Scheduled Jobs` | Tool nav |
 | Table heading / card title `Scheduled Jobs` | List surfaces |
+| Demo card headers `Name`, `Next Due` (no `Expression`) | Card `only(['command','nextDue'])` |
+| Demo tool headers omit `Timezone`, `Run In Background`, `Run In Maintenance Mode` | Tool `except([...])` |
 | `button[aria-label="Dispatch"]` (enabled) | Open dispatch confirm |
 | Modal text `Dispatch Job` / `Confirm` / `Cancel` | Confirm or abort |
 | Toast / success text `The job was dispatched!` | Dispatch succeeded |

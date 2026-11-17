@@ -2,6 +2,10 @@
 
 All notable changes to `nova-scheduled-jobs` will be documented in this file
 
+## Unreleased
+
+-   Support configuring include/exclude column lists on the Tool and Card via `only()` / `except()`, or a publishable `nova-scheduled-jobs` config file (#48)
+
 ## 7.1.0 - 2026.11.16
 
 -   Resolve scheduled command descriptions from the Symfony `AsCommand` attribute when `$description` is not set on the command class (#46)

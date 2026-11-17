@@ -19,13 +19,19 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function boot()
     {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../config/nova-scheduled-jobs.php' => config_path('nova-scheduled-jobs.php'),
+            ], 'nova-scheduled-jobs-config');
+        }
+
         $this->app->booted(function () {
             $this->routes();
         });
 
         Nova::serving(function (ServingNova $event) {
-            Nova::script('nova-scheduled-jobs', __DIR__ . '/../dist/js/app.js');
-            Nova::style('nova-scheduled-jobs', __DIR__ . '/../dist/css/app.css');
+            Nova::script('nova-scheduled-jobs', __DIR__.'/../dist/js/app.js');
+            Nova::style('nova-scheduled-jobs', __DIR__.'/../dist/css/app.css');
         });
     }
 
@@ -42,11 +48,11 @@ class ServiceProvider extends IlluminateServiceProvider
         }
 
         Nova::router(['nova', Authenticate::class, Authorize::class], 'nova-scheduled-jobs')
-            ->group(__DIR__ . '/../routes/inertia.php');
+            ->group(__DIR__.'/../routes/inertia.php');
 
         Route::middleware(['nova', Authenticate::class, Authorize::class])
             ->prefix('nova-vendor/nova-scheduled-jobs')
-            ->group(__DIR__ . '/../routes/api.php');
+            ->group(__DIR__.'/../routes/api.php');
     }
 
     /**
@@ -56,6 +62,9 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function register()
     {
-        //
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/nova-scheduled-jobs.php',
+            'nova-scheduled-jobs'
+        );
     }
 }
