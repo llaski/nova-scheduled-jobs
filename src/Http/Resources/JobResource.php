@@ -45,6 +45,7 @@ class JobResource extends JsonResource
             'onOneServer' => $this->onOneServer,
             'runInBackground' => $this->runInBackground,
             'evenInMaintenanceMode' => $this->evenInMaintenanceMode,
+            'mutexName' => $this->mutexName(),
         ];
     }
 }

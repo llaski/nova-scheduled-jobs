@@ -18,6 +18,7 @@ use Illuminate\Contracts\Console\Kernel;
  * @property bool $onOneServer
  * @property bool $runInBackground
  * @property bool $evenInMaintenanceMode
+ * @method string mutexName()
  */
 abstract class Event
 {
@@ -96,6 +97,16 @@ abstract class Event
     public function timezone()
     {
         return new DateTimeZone($this->event->timezone ?? config('app.timezone'));
+    }
+
+    /**
+     * Resolve the mutex name Laravel uses for this event (including createMutexNameUsing).
+     *
+     * @return string
+     */
+    public function mutexName()
+    {
+        return $this->event->mutexName();
     }
 
     public function __get($name)

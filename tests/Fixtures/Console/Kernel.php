@@ -53,6 +53,11 @@ class Kernel extends ConsoleKernel
         $schedule->command('inspire')->hourly()->evenInMaintenanceMode();
         $schedule->command('inspire')->hourly()->runInBackground();
 
+        $schedule->command(LogUsers::class)
+            ->everyFiveMinutes()
+            ->withoutOverlapping()
+            ->createMutexNameUsing('custom-log-users-mutex');
+
         $schedule->job(new ProcessPodcast)->everyFiveMinutes();
 
         $schedule->exec('node /home/forge/script.js')->monthly();

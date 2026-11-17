@@ -2,6 +2,10 @@
 
 All notable changes to `nova-scheduled-jobs` will be documented in this file
 
+## Unreleased
+
+-   Include each scheduled event's resolved mutex name in the jobs API and tool UI, including names set via Laravel's `createMutexNameUsing` (#47)
+
 ## 7.1.0 - 2026.11.16
 
 -   Resolve scheduled command descriptions from the Symfony `AsCommand` attribute when `$description` is not set on the command class (#46)
