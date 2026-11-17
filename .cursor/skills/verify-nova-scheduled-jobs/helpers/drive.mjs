@@ -85,7 +85,7 @@ async function fetchJobsApi(page) {
 }
 
 async function browseScheduledJobs(page) {
-  // Card on main dashboard
+  // Card on main dashboard — demo uses only(['command', 'nextDue'])
   await page.goto(`${BASE_URL}/nova/dashboards/main`, { waitUntil: 'networkidle2' });
   await new Promise((r) => setTimeout(r, 1500));
   await shot(page, 'browse-card.png');
@@ -94,29 +94,43 @@ async function browseScheduledJobs(page) {
   if (!/inspire|PruneDemoRecords|demo:heartbeat/i.test(cardText)) {
     throw new Error('dashboard card missing expected job rows');
   }
+  if (!/\bName\b/i.test(cardText) || !/Next Due/i.test(cardText)) {
+    throw new Error('dashboard card missing Name/Next Due headers');
+  }
+  // Expression column intentionally hidden on the demo card
+  const cardHeaders = await page.evaluate(() => {
+    const card = [...document.querySelectorAll('h1,h2,h3,[class*="heading"]')]
+      .find((el) => /Scheduled Jobs/i.test(el.textContent || ''));
+    const root = card?.closest('[class*="card"], section, div') || document.body;
+    return [...root.querySelectorAll('thead th')].map((th) => th.textContent.trim());
+  });
+  if (cardHeaders.some((h) => /^Expression$/i.test(h))) {
+    throw new Error('demo card should hide Expression column, got: ' + JSON.stringify(cardHeaders));
+  }
 
-  // Tool
+  // Tool — demo uses except(['timezone', 'runInBackground', 'evenInMaintenanceMode'])
   await page.goto(`${BASE_URL}/nova/nova-scheduled-jobs`, { waitUntil: 'networkidle2' });
   await new Promise((r) => setTimeout(r, 1500));
   await shot(page, 'browse-tool.png');
   const toolText = await page.evaluate(() => document.body.innerText);
-  for (const needle of [
-    'Schedule',
-    'Timezone',
-    'Without Overlapping',
-    'Dispatch',
-    'America/New_York',
-  ]) {
+  for (const needle of ['Schedule', 'Expression', 'Without Overlapping', 'On One Server', 'Dispatch']) {
     if (!new RegExp(needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i').test(toolText)) {
       throw new Error(`tool missing column/value: ${needle}`);
+    }
+  }
+  for (const hidden of ['Timezone', 'Run In Background', 'Run In Maintenance Mode']) {
+    if (new RegExp(hidden.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i').test(toolText)) {
+      throw new Error(`demo tool should hide column: ${hidden}`);
     }
   }
 
   const api = await fetchJobsApi(page);
   if (api.status !== 200) throw new Error(`jobs API ${api.status}`);
   if (api.count < 10) throw new Error(`expected >=10 jobs, got ${api.count}`);
-  writeJson('browse-jobs.json', { feature: 'browse-scheduled-jobs', api });
-  console.log('PASS browse-scheduled-jobs count=', api.count);
+  const hasNy = (api.data || []).some((j) => j.timezone === 'America/New_York');
+  if (!hasNy) throw new Error('API missing America/New_York timezone job (still expected in payload)');
+  writeJson('browse-jobs.json', { feature: 'browse-scheduled-jobs', api, cardHeaders });
+  console.log('PASS browse-scheduled-jobs count=', api.count, 'cardHeaders=', cardHeaders.join(','));
 }
 
 async function dispatchJob(page) {

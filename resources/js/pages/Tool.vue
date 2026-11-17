@@ -18,51 +18,61 @@
                 <thead class="bg-gray-50 dark:bg-gray-800">
                     <tr>
                         <th
+                            v-if="showsColumn('command')"
                             class="text-left px-2 whitespace-nowrap uppercase text-gray-500 text-xxs tracking-wide py-2"
                         >
                             <span>{{ __('Name/Description') }}</span>
                         </th>
                         <th
+                            v-if="showsColumn('schedule')"
                             class="text-left px-2 uppercase text-gray-500 text-xxs tracking-wide py-2"
                         >
                             <span class="w-40 inline-block">{{ __('Schedule') }}</span>
                         </th>
                         <th
+                            v-if="showsColumn('expression')"
                             class="text-left px-2 whitespace-nowrap uppercase text-gray-500 text-xxs tracking-wide py-2"
                         >
                             <span>{{ __('Expression') }}</span>
                         </th>
                         <th
+                            v-if="showsColumn('timezone')"
                             class="text-left px-2 whitespace-nowrap uppercase text-gray-500 text-xxs tracking-wide py-2"
                         >
                             <span>{{ __('Timezone') }}</span>
                         </th>
                         <th
+                            v-if="showsColumn('nextDue')"
                             class="text-left px-2 whitespace-nowrap uppercase text-gray-500 text-xxs tracking-wide py-2"
                         >
                             <span>{{ __('Next Due') }}</span>
                         </th>
                         <th
+                            v-if="showsColumn('withoutOverlapping')"
                             class="text-left px-2 uppercase text-gray-500 text-xxs tracking-wide py-2"
                         >
                             <span>{{ __('Without Overlapping') }}</span>
                         </th>
                         <th
+                            v-if="showsColumn('onOneServer')"
                             class="text-left px-2 uppercase text-gray-500 text-xxs tracking-wide py-2"
                         >
                             <span>{{ __('On One Server') }}</span>
                         </th>
                         <th
+                            v-if="showsColumn('runInBackground')"
                             class="text-left px-2 uppercase text-gray-500 text-xxs tracking-wide py-2"
                         >
                             <span>{{ __('Run In Background') }}</span>
                         </th>
                         <th
+                            v-if="showsColumn('evenInMaintenanceMode')"
                             class="text-left px-2 uppercase text-gray-500 text-xxs tracking-wide py-2"
                         >
                             <span>{{ __('Run In Maintenance Mode') }}</span>
                         </th>
                         <th
+                            v-if="showsColumn('dispatch')"
                             class="text-left px-2 whitespace-nowrap uppercase text-gray-500 text-xxs tracking-wide py-2"
                         >
                             <span>{{ __('Dispatch') }}</span>
@@ -70,39 +80,63 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
-                    <tr v-for="(job, index) in jobs" :job="job">
-                        <td class="px-2 py-2 whitespace-nowrap dark:bg-gray-800">
+                    <tr v-for="(job, index) in jobs" :key="index" :job="job">
+                        <td
+                            v-if="showsColumn('command')"
+                            class="px-2 py-2 whitespace-nowrap dark:bg-gray-800"
+                        >
                             <p class="mb-1 font-bold">{{ job.command }}</p>
                             <p class="text-sm">{{ job.description }}</p>
                         </td>
-                        <td class="px-2 py-2 dark:bg-gray-800">
+                        <td v-if="showsColumn('schedule')" class="px-2 py-2 dark:bg-gray-800">
                             <span class="w-40 inline-block">{{ job.expressionHumanReadable }}</span>
                         </td>
-                        <td class="px-2 py-2 whitespace-nowrap dark:bg-gray-800">
+                        <td
+                            v-if="showsColumn('expression')"
+                            class="px-2 py-2 whitespace-nowrap dark:bg-gray-800"
+                        >
                             {{ job.expression }}
                         </td>
-                        <td class="px-2 py-2 whitespace-nowrap dark:bg-gray-800">
+                        <td
+                            v-if="showsColumn('timezone')"
+                            class="px-2 py-2 whitespace-nowrap dark:bg-gray-800"
+                        >
                             {{ job.timezone }}
                         </td>
-                        <td class="px-2 py-2 whitespace-nowrap dark:bg-gray-800">
+                        <td
+                            v-if="showsColumn('nextDue')"
+                            class="px-2 py-2 whitespace-nowrap dark:bg-gray-800"
+                        >
                             <p class="mb-1 font-bold">{{ job.nextDue }}</p>
                             <p class="text-sm">
                                 {{ job.nextDueHumanReadable }}
                             </p>
                         </td>
-                        <td class="px-2 py-2 dark:bg-gray-800">
+                        <td
+                            v-if="showsColumn('withoutOverlapping')"
+                            class="px-2 py-2 dark:bg-gray-800"
+                        >
                             {{ job.withoutOverlapping ? 'Yes' : 'No' }}
                         </td>
-                        <td class="px-2 py-2 dark:bg-gray-800">
+                        <td v-if="showsColumn('onOneServer')" class="px-2 py-2 dark:bg-gray-800">
                             {{ job.onOneServer ? 'Yes' : 'No' }}
                         </td>
-                        <td class="px-2 py-2 dark:bg-gray-800">
+                        <td
+                            v-if="showsColumn('runInBackground')"
+                            class="px-2 py-2 dark:bg-gray-800"
+                        >
                             {{ job.runInBackground ? 'Yes' : 'No' }}
                         </td>
-                        <td class="px-2 py-2 dark:bg-gray-800">
+                        <td
+                            v-if="showsColumn('evenInMaintenanceMode')"
+                            class="px-2 py-2 dark:bg-gray-800"
+                        >
                             {{ job.evenInMaintenanceMode ? 'Yes' : 'No' }}
                         </td>
-                        <td class="px-2 py-2 whitespace-nowrap dark:bg-gray-800">
+                        <td
+                            v-if="showsColumn('dispatch')"
+                            class="px-2 py-2 whitespace-nowrap dark:bg-gray-800"
+                        >
                             <button
                                 title="Dispatch"
                                 class="toolbar-button hover:text-primary-500 px-2 disabled:opacity-50 disabled:pointer-events-none"
@@ -130,8 +164,28 @@
 <script>
 import FetchesJobs from '../mixins/FetchesJobs'
 
+const DEFAULT_COLUMNS = [
+    'command',
+    'schedule',
+    'expression',
+    'timezone',
+    'nextDue',
+    'withoutOverlapping',
+    'onOneServer',
+    'runInBackground',
+    'evenInMaintenanceMode',
+    'dispatch',
+]
+
 export default {
     mixins: [FetchesJobs],
+
+    props: {
+        columns: {
+            type: Array,
+            default: () => DEFAULT_COLUMNS,
+        },
+    },
 
     data: () => ({
         jobs: [],
@@ -145,9 +199,13 @@ export default {
     },
 
     methods: {
+        showsColumn(column) {
+            return this.columns.includes(column)
+        },
+
         canDispatchCommand(command) {
             if (command) {
-                return command.includes('\Jobs')
+                return command.includes('\\Jobs')
             }
 
             return false

@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Nova;
+use Llaski\NovaScheduledJobs\Columns;
+use Llaski\NovaScheduledJobs\Tool as NovaScheduledJobsTool;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +18,13 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 */
 
 Route::get('/', function (NovaRequest $request) {
-    return inertia('NovaScheduledJobs');
+    $tool = collect(Nova::registeredTools())->first(
+        fn ($registered) => $registered instanceof NovaScheduledJobsTool
+    );
+
+    return inertia('NovaScheduledJobs', [
+        'columns' => $tool instanceof NovaScheduledJobsTool
+            ? $tool->columns()
+            : Columns::toolDefaults(),
+    ]);
 })->name('nova-scheduled-jobs.index');
